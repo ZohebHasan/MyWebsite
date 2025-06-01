@@ -19,7 +19,7 @@ const Bottom: React.FC = () => {
 
   return (
     <BottomContainer>
-      <Text size={"1.2rem"} variant={"transparent"} fontWeight={"500"}> Previous associations</Text>
+      <Text size={"1rem"} variant={"transparent"} fontWeight={"500"}> Previous associations</Text>
       <Layer>
         <ConnectLogo />
         <StyledLogo src={StonyBrookLogo} alt="Logo" size={size} type="stonybrook" />
@@ -38,10 +38,10 @@ export default Bottom;
 
 const StyledLogo = styled.img<{ size: number; type: string }>`
   width: ${({ type }) => {
-    if (type === 'stonybrook') return '5rem';
-    if (type === 'robi') return '3.5rem';
-    if (type === 'nirontor') return '5rem';
-    if (type === 'chocolateapa') return '4.5rem';
+    if (type === 'stonybrook') return '3.2rem';
+    if (type === 'robi') return '3rem';
+    if (type === 'nirontor') return '4rem';
+    if (type === 'chocolateapa') return '3.5rem';
     return '2rem'; // fallback default
   }};
 
@@ -69,7 +69,7 @@ const Layer = styled.div`
 
 const BottomContainer = styled.div`
   /* margin-top: 1.5625rem;  */
-  flex: 1.5;
+  flex: 1.2;
   display: flex;
   flex-direction: column;
   align-items: center;

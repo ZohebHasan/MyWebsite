@@ -4,7 +4,7 @@ import LogoNew from '../../assets/logo.png';
 import { useDarkMode } from "../../../contexts/darkMode";
 import Text from "./text";
 
-const ConnectLogo: React.FC<{ size?: number }> = ({ size = 1.2 }) => {  // Set default size
+const ConnectLogo: React.FC<{ size?: number }> = ({ size = 1 }) => {  // Set default size
     const { isDarkMode } = useDarkMode();
     return (
         <LogoContainer>
