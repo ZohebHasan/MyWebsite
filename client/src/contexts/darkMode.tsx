@@ -16,7 +16,7 @@ const lightTheme: Theme = {
 
 const darkTheme: Theme = {
   // bodyBackgroundColor: "rgb(26, 16, 26)",
-  bodyBackgroundColor: "rgb(0,0,0)",
+  bodyBackgroundColor: "rgb(27, 24, 27)",
   textColor: "white",
   otherColor: "#ddd",
 };

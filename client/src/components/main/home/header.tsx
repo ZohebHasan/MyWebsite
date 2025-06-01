@@ -1,0 +1,31 @@
+import React from 'react';
+import styled from 'styled-components';
+
+import HeaderContainer from "../../ui/templetes/headerTemplete"
+import DarkLightToggle from '../../ui/elements/darkLightToggle';
+import Logo from '../../ui/elements/logo';
+
+const HeaderLogin: React.FC = () => {
+    return (
+        <HeaderContainer variant = {"hidden"}>
+            <Logo/>
+            <DarkLightToggleContainer>
+                <DarkLightToggle />
+            </DarkLightToggleContainer>
+        </HeaderContainer>
+    );
+};
+
+export default HeaderLogin;
+
+
+const DarkLightToggleContainer = styled.div`
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 10px;
+    margin-right: 10px;
+    justify-content: flex-end;
+    width: 100%;
+    // background-color:blue;
+`;

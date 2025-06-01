@@ -4,6 +4,10 @@ import PageContainer from '../components/ui/templetes/pageTemplete';
 import Copyright from '../components/ui/elements/copyright';
 import BackgroundAnimation from '../components/ui/backgroundGradient';
 
+
+//pages
+import Home from "../pages/home"
+
 export default function Connect(): React.ReactElement {
     return (
         <Router>
@@ -32,7 +36,7 @@ function RouterContainer() {
 function RoutesWrapper() {
     return (
         <Routes>
-            <Route path="/projects" element={<>Projects</>} />
+            <Route path="/" element={<Home/>} />
             <Route path="/research" element={<>Research</>} />     
         </Routes>
     );

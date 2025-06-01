@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
+import { useDarkMode } from '../../../contexts/darkMode';
+
 interface PageContainerProps {
   children?: React.ReactNode;
 }
@@ -8,6 +10,7 @@ interface PageContainerProps {
 const Page: React.FC<PageContainerProps> = ({ children }) => {
   const viewerRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
+  const {isDarkMode} = useDarkMode();
   
   useEffect(() => {
     const viewer = viewerRef.current;
@@ -83,7 +86,7 @@ const Page: React.FC<PageContainerProps> = ({ children }) => {
 
   return (
     <Viewer ref={viewerRef}>
-      <PageContainer ref={boardRef}>
+      <PageContainer ref={boardRef} $isDarkMode = {isDarkMode}>
         {children}
       </PageContainer>
     </Viewer>
@@ -94,14 +97,14 @@ export default Page;
 
 // Perspective container
 const Viewer = styled.div`
-  margin: 15px;
-  width: calc(100vw - 30px);
-  height: calc(100vh - 40px);
+  margin: 20px;
+  width: calc(100vw - 40px);
+  height: calc(100vh - 50px);
   perspective: 1200px;
 `;
 
 // Tiltable board
-const PageContainer = styled.div`
+const PageContainer = styled.div<{ $isDarkMode: boolean }>`
   width: 100%;
   height: 100%;
   border-radius: 20px;
@@ -110,17 +113,17 @@ const PageContainer = styled.div`
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: white;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  transition: box-shadow 0.2s ease-out;
-  will-change: transform, transform-origin;
+  background: ${({ $isDarkMode }) => ($isDarkMode ? '#1a1a1a' : '#fff')};
+  border: 1px solid ${({ $isDarkMode }) => ($isDarkMode ? '#333' : '#e6d5e7')};
   cursor: default;
-
-  /* Initial transform setup */
+  will-change: transform, transform-origin;
   transform-origin: 50% 50%;
   transform: rotateX(0deg) rotateY(0deg);
+  transition: background 0.2s ease-out, border 0.2s ease-out;
 
-  &:hover {
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-  }
+  /* No box-shadow in dark mode; subtle shadow in light mode */
+  box-shadow: ${({ $isDarkMode }) =>
+    $isDarkMode ? 'none' : '0 2px 15px rgba(0, 0, 0, 0.2)'};
 `;
+
+
