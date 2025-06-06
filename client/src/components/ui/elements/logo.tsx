@@ -32,12 +32,13 @@ const LogoContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     /* gap: 0.3rem; */
-    // background-color: red;
-    width: 100%;
+    /* background-color: red; */
+    /* width: 100%; */
     margin-top: 10px;
     padding-top: 10px;
     margin-left: 10px;
     padding-left: 10px;
+    flex: 1;
 `;
 
 const StyledLogo = styled.img<{ size: number }>`

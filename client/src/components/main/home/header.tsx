@@ -7,8 +7,8 @@ import Logo from '../../ui/elements/logo';
 
 const HeaderLogin: React.FC = () => {
     return (
-        <HeaderContainer variant = {"hidden"}>
-            <Logo/>
+        <HeaderContainer variant={"hidden"}>
+            <Logo />
             <DarkLightToggleContainer>
                 <DarkLightToggle />
             </DarkLightToggleContainer>
@@ -26,6 +26,7 @@ const DarkLightToggleContainer = styled.div`
     padding-right: 10px;
     margin-right: 10px;
     justify-content: flex-end;
-    width: 100%;
+    /* width: 100%; */
+    flex: 1;
     // background-color:blue;
 `;

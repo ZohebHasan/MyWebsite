@@ -8,11 +8,12 @@ import Text from '../../../ui/elements/text';
 
 import { useDarkMode } from '../../../../contexts/darkMode';
 
-
+import { useNavigate } from 'react-router-dom';
 
 const Top: React.FC = () => {
-
     const { isDarkMode } = useDarkMode();
+    const navigate = useNavigate();
+
     return (
         <TopContainer>
             <Greetings />
@@ -36,14 +37,14 @@ const Top: React.FC = () => {
                     <StyledLink $isDarkMode={isDarkMode}>About</StyledLink>
                 </ButtonContainer>
                 <ButtonContainer>
-                    <StyledLink $isDarkMode={isDarkMode}>Contact</StyledLink>
+                    <StyledLink $isDarkMode={isDarkMode} onClick={() => navigate("/contact")}>
+                        Contact
+                    </StyledLink>
                 </ButtonContainer>
             </ButtonsContainer>
-
-
         </TopContainer>
     );
-}
+};
 
 
 export default Top;

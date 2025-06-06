@@ -1,8 +1,8 @@
 import React from 'react';
 
 
-import Header from '../components/main/home/header';
-import Body from '../components/main/home/body';
+import Header from '../components/main/contact/header';
+import Body from '../components/main/contact/body';
 
 
 

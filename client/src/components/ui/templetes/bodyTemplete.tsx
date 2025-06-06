@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { useDarkMode } from "../../../contexts/darkMode";
 
 interface BodyContainerProps {
-    children: React.ReactNode; 
+    children: React.ReactNode;
     flexDirection: "row" | "column";
     position?: "absolute";
     flex?: number;
 }
 
-const Body: React.FC<BodyContainerProps> = ({children, flexDirection, position, flex}) => {
-    const {isDarkMode} = useDarkMode();
+const Body: React.FC<BodyContainerProps> = ({ children, flexDirection, position, flex }) => {
+    const { isDarkMode } = useDarkMode();
 
     return (
         <BodyContainer $flexDirection={flexDirection} $position={position} $flex={flex} $isDarkMode={isDarkMode}>
@@ -21,10 +21,10 @@ const Body: React.FC<BodyContainerProps> = ({children, flexDirection, position, 
 
 export default Body;
 
-const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: "absolute", $flex?: number, $isDarkMode: boolean}>`
+const BodyContainer = styled.div<{ $flexDirection: "row" | "column", $position?: "absolute", $flex?: number, $isDarkMode: boolean }>`
     flex: ${({ $flex }) => $flex || 1}; 
     display: flex;
-
+    /* background-color: Pink; */
     align-items: center;
     z-index: 1;
     width: 100%;

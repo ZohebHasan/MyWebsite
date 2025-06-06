@@ -7,6 +7,8 @@ import BackgroundAnimation from '../components/ui/backgroundGradient';
 
 //pages
 import Home from "../pages/home"
+import Contact from "../pages/contact"
+import About from "../pages/about"
 
 export default function Connect(): React.ReactElement {
     return (
@@ -14,7 +16,7 @@ export default function Connect(): React.ReactElement {
             {/* <Routes>
                 <Route path="/" element={<Intro />} />
             </Routes> */}
-            <RouterContainer/>
+            <RouterContainer />
         </Router>
     );
 }
@@ -25,7 +27,7 @@ function RouterContainer() {
         <>
             <PageContainer>
                 <RoutesWrapper />
-                <BackgroundAnimation/>
+                <BackgroundAnimation />
             </PageContainer>
             <Copyright />
         </>
@@ -36,8 +38,9 @@ function RouterContainer() {
 function RoutesWrapper() {
     return (
         <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/research" element={<>Research</>} />     
+            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<Contact />} />
+            {/* <Route path="/" element={<About />} /> */}
         </Routes>
     );
 }

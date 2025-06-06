@@ -73,7 +73,7 @@ const GreetingMessage = styled.h1<GreetingMessageProps>`
 
   color: transparent;
   background: ${({ $isDarkMode }) => $isDarkMode ?
-        'linear-gradient(to right, #662D8C, #ED1E79)' :
+        'linear-gradient(to right, #2a37a8, #e15782)' :
         'linear-gradient(to right, #662D8C, #ED1E79)'};
   -webkit-background-clip: text;
   background-clip: text;
