@@ -23,17 +23,18 @@ const Header: React.FC<HeaderContainerProps> = ({children, variant }) => {
  
 
   const HeaderContainer = styled.div<{ $isDarkMode: boolean; $variant: "visible" | "hidden" }>`
-    width: 100%;
+    width: 95%;
     height: 3.125rem; 
     display: flex;
     flex-direction: row;
     align-items: center;
     transition: background-color 0.1s ease-in-out;
-    position: absolute;
+    position: fixed;
     z-index: 3;
-    background-color: ${({ $isDarkMode, $variant }) => getBackgroundColor($isDarkMode, $variant)};
+    /* background-color: ${({ $isDarkMode, $variant }) => getBackgroundColor($isDarkMode, $variant)}; */
     /* margin-top: ${({ $variant }) => ($variant === "visible" ? "0.9375rem" : "0")}; */
-    // top: 2.5%;
+     top: 2.8%;
+    /* background-color: red; */
   
 
     @media (max-width: 1280px) {

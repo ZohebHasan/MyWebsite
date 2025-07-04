@@ -30,15 +30,16 @@ const LogoContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     /* gap: 0.3rem; */
-    /* background-color: red; */
+    /* background-color: blue; */
     /* width: 100%; */
-    margin-top: 10px;
+    /* margin-top: 10px;
     padding-top: 10px;
     margin-left: 10px;
-    padding-left: 10px;
-    flex: 1;
+    padding-left: 10px; */
+    /* flex: 1; */
+    /* padding-right: 6rem; */
 `;
 
 const StyledLogo = styled.img<{ size: number }>`

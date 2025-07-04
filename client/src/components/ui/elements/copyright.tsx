@@ -14,6 +14,7 @@ const Copyright: React.FC= () => {
 
 export default Copyright;
 const CopyRightText = styled.div<{ $isDarkMode: boolean }>`
+  z-index: 2;
   position: fixed;
   bottom: 0;
   right: 0;

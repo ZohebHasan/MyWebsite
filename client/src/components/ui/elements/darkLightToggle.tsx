@@ -29,8 +29,8 @@ const ToggleCircle = styled.div<{ $darkMode?: boolean }>`
   position: absolute;
   left: ${({ $darkMode }) => $darkMode ? 'auto' : '0.3125rem'}; 
   right: ${({ $darkMode }) => $darkMode ? '0.3125rem' : 'auto'}; 
-  width: 1.3125rem; 
-  height: 1.3125rem; 
+  width: 1.1rem; 
+  height: 1.1rem; 
   border-radius: 200px; 
   background-color: ${({ $darkMode }) => $darkMode ? 'rgb(109, 109, 109)' : '#FDB813'};
   z-index: 6;
@@ -52,8 +52,8 @@ const ToggleCircle = styled.div<{ $darkMode?: boolean }>`
 
 
 const ToggleContainer = styled.div<{ $darkMode?: boolean }>`
-  width: 4rem;  
-  height: 1.6875rem;  
+  width: 3.5rem;  
+  height: 1.5rem;  
   border-radius: 1.25rem;
   position: relative;
   cursor: pointer;
@@ -65,7 +65,7 @@ const ToggleContainer = styled.div<{ $darkMode?: boolean }>`
   z-index: 5;
 
   &:hover ${ToggleCircle} {
-    width: ${({ $darkMode }) => $darkMode ? '1.9375rem' : '1.8125rem'}; 
+    width: ${({ $darkMode }) => $darkMode ? '1.3rem' : '1.3rem'}; 
   }
 
   @media (max-width: 1280px) { 

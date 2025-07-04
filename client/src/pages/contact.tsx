@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import Header from '../components/main/contact/header';
-import Body from '../components/main/contact/body';
+import Body from '../components/main/contact/body1';
 
 
 

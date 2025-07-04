@@ -26,7 +26,7 @@ const BodyContainer = styled.div<{ $flexDirection: "row" | "column", $position?:
     display: flex;
     /* background-color: Pink; */
     align-items: center;
-    z-index: 1;
+    /* z-index: 1; */
     width: 100%;
     height: 100%;
     overflow: auto;

@@ -9,7 +9,7 @@ export interface Theme {
 }
 
 const lightTheme: Theme = {
-  bodyBackgroundColor: "rgb(245, 245, 245)",
+  bodyBackgroundColor: "rgb(242, 237, 239)",
   textColor: "black",
   otherColor: "#333",
 };

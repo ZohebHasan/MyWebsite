@@ -4,6 +4,10 @@ import './App.css';
 import { createGlobalStyle } from 'styled-components';
 import ZohebHasan from '../main/zohebhasan';
 import { DarkModeProvider } from '../contexts/darkMode';
+import { SidebarProvider } from '../contexts/sidebar';
+import { ScrollProvider } from '../contexts/scroll';
+import { AccessibilityProvider } from '../contexts/accessibility';
+
 
 
 
@@ -12,12 +16,16 @@ import { DarkModeProvider } from '../contexts/darkMode';
 const App: React.FC = () => {
   return (
     <>
-          <DarkModeProvider>
+      <AccessibilityProvider>
+        <DarkModeProvider>
+          <ScrollProvider>
+            <SidebarProvider>
               <GlobalStyle />
-              <ZohebHasan/>
-          </DarkModeProvider>
-
-
+              <ZohebHasan />
+            </SidebarProvider>
+          </ScrollProvider>
+        </DarkModeProvider>
+      </AccessibilityProvider>
     </>
   );
 };
@@ -29,19 +37,19 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${(props) => props.theme.bodyBackgroundColor};
     color: ${(props) => props.theme.textColor};
-    margin: 0;
+    /* margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     transition: background-color 0.3s;
-    align-items: center;
+    /* align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow: auto; */
     
   }
-  p, a {
+  /* p, a {
     margin: 0;
     padding: 0;
-  }
+  } */
 `;

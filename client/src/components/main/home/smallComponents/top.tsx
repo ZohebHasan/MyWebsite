@@ -5,17 +5,20 @@ import styled from 'styled-components';
 import Greetings from '../smallComponents/greetings';
 import Text from '../../../ui/elements/text';
 
-
+import { useScroll } from '../../../../contexts/scroll';
 import { useDarkMode } from '../../../../contexts/darkMode';
 
-import { useNavigate } from 'react-router-dom';
+import NavigationButtons from '../../../ui/elements/navButtons';
+
+
 
 const Top: React.FC = () => {
     const { isDarkMode } = useDarkMode();
-    const navigate = useNavigate();
+    const { showStickyButtons } = useScroll();
+
 
     return (
-        <TopContainer>
+        <TopContainer >
             <Greetings />
             <TextContainer>
                 <Text size={"1.4rem"} variant={"transparent"} fontWeight={"300"}> I'm </Text>
@@ -23,24 +26,11 @@ const Top: React.FC = () => {
                 <Text size={"1.4rem"} variant={"transparent"} fontWeight={"300"}> and I build cool</Text>
                 <Text size={"1.5rem"} variant={"personal"} fontWeight={"500"}> softwares.</Text>
             </TextContainer>
+            {/* <NavigationButtons /> */}
             <ButtonsContainer>
-                <ButtonContainer>
-                    <StyledLink $isDarkMode={isDarkMode}>Projects</StyledLink>
-                </ButtonContainer>
-                <ButtonContainer>
-                    <StyledLink $isDarkMode={isDarkMode}>Research</StyledLink>
-                </ButtonContainer>
-                <ButtonContainer>
-                    <StyledLink $isDarkMode={isDarkMode}>Resume</StyledLink>
-                </ButtonContainer>
-                <ButtonContainer>
-                    <StyledLink $isDarkMode={isDarkMode}>About</StyledLink>
-                </ButtonContainer>
-                <ButtonContainer>
-                    <StyledLink $isDarkMode={isDarkMode} onClick={() => navigate("/contact")}>
-                        Contact
-                    </StyledLink>
-                </ButtonContainer>
+                {!showStickyButtons && (
+                    <NavigationButtons />
+                )}
             </ButtonsContainer>
         </TopContainer>
     );
@@ -83,12 +73,10 @@ const ButtonContainer = styled.div`
 const ButtonsContainer = styled.div`
     /* background-color: orange; */
     display: flex;
-    flex-direction: row;
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    gap: 1.5rem;
-    margin-top: 10px;
+    min-height: 3rem; 
 `
 
 const TextContainer = styled.div`

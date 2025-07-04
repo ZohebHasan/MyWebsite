@@ -97,6 +97,7 @@ export default Page;
 
 // Perspective container
 const Viewer = styled.div`
+  position: absolute;
   margin: 20px;
   width: calc(100vw - 40px);
   height: calc(100vh - 50px);

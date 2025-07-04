@@ -7,36 +7,46 @@ interface TextProps {
     size: string;
     fontWeight: string;
     children: React.ReactNode;
+    hasUnderline?: boolean; // ✅ Optional prop for underline
 }
 
-const Text: React.FC<TextProps> = ({ variant, size, children, fontWeight }) => {
+const Text: React.FC<TextProps> = ({ variant, size, children, fontWeight, hasUnderline }) => {
     const { isDarkMode } = useDarkMode();
+
     return (
-        <StyledText $variant={variant} $size={size} $isDarkMode={isDarkMode} $fontWeight = {fontWeight}>
+        <StyledText
+            $variant={variant}
+            $size={size}
+            $isDarkMode={isDarkMode}
+            $fontWeight={fontWeight}
+            $hasUnderline={hasUnderline}
+        >
             {children}
         </StyledText>
     );
-}
+};
 
 export default Text;
 
 interface StyledTextProps {
-    $variant?: 'transparent' | 'normal' | 'personal' | 'school' | 'professional' | 'gradient'
+    $variant?: 'transparent' | 'normal' | 'personal' | 'school' | 'professional' | 'gradient';
     $size: string;
     $isDarkMode: boolean;
     $fontWeight: string;
+    $hasUnderline?: boolean; // ✅ Styled prop
 }
 
 const StyledText = styled.p<StyledTextProps>`
     display: inline;
-    line-height: 1.6;
     font-size: ${({ $size }) => $size};
+    font-weight: ${({ $fontWeight }) => $fontWeight};
 
-    @media (max-width: 1280px) { 
-        font-size: ${({ $size }) => `calc(${$size} * 0.65)`}; 
+    text-decoration: ${({ $hasUnderline }) => ($hasUnderline ? 'underline' : 'none')};
+
+    @media (max-width: 1280px) {
+        font-size: ${({ $size }) => `calc(${$size} * 0.65)`};
     }
 
-    font-weight: ${ ({$fontWeight}) => $fontWeight};
     ${({ $variant, $isDarkMode }) => {
         switch ($variant) {
             case 'transparent':
@@ -50,36 +60,35 @@ const StyledText = styled.p<StyledTextProps>`
             case 'gradient':
                 return css`
                     color: transparent;
-                    background: ${$isDarkMode ? "linear-gradient(to right, #3944a4, #e15782)" 
-                                            : "linear-gradient(to right, #662D8C, #ED1E79)"};
+                    background: ${$isDarkMode
+                        ? 'linear-gradient(to right, #3944a4, #e15782)'
+                        : 'linear-gradient(to right, #662D8C, #ED1E79)'};
                     -webkit-background-clip: text;
                     background-clip: text;
                 `;
             case 'personal':
                 return css`
                     color: transparent;
-                    background: ${$isDarkMode ? "linear-gradient(to right, #662D8C, #ED1E79)" 
-                                              : "linear-gradient(to right, #662D8C, #ED1E79)"};
+                    background: linear-gradient(to right, #662D8C, #ED1E79);
                     -webkit-background-clip: text;
                     background-clip: text;
                 `;
             case 'professional':
                 return css`
                     color: transparent;
-                    background: ${$isDarkMode ? "linear-gradient(to right, #2E3192, #1BFFFF)"
-                                              : "linear-gradient(to right, #2E3192, #1BFFFF)"};
+                    background: linear-gradient(to right, #2E3192, #1BFFFF);
                     -webkit-background-clip: text;
                     background-clip: text;
                 `;
             case 'school':
                 return css`
                     color: transparent;
-                    background: ${$isDarkMode ? "linear-gradient(to right, #EA8D8D, #A890FE)"
-                                              : "linear-gradient(to right, #EA8D8D, #A890FE)"};
+                    background: linear-gradient(to right, #EA8D8D, #A890FE);
                     -webkit-background-clip: text;
                     background-clip: text;
                 `;
+            default:
+                return css``;
         }
     }}
-    
 `;

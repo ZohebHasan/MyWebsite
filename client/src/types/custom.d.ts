@@ -3,6 +3,16 @@ declare module '*.png' {
     export = value;
 }
 
+declare module '*.JPG' {
+    const value: any;
+    export = value;
+}
+
+declare module '*.pdf' {
+  const src: string;
+  export default src;
+}
+
 declare module '*.mp4' {
     const src: string;
     export default src;
