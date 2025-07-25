@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-
 import { useDarkMode } from '../../../contexts/darkMode';
 
 interface PageContainerProps {
@@ -10,83 +9,119 @@ interface PageContainerProps {
 const Page: React.FC<PageContainerProps> = ({ children }) => {
   const viewerRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
-  const {isDarkMode} = useDarkMode();
-  
+  const { isDarkMode } = useDarkMode();
+
   useEffect(() => {
     const viewer = viewerRef.current;
     const board = boardRef.current;
     if (!viewer || !board) return;
-    
-    // Lowered max tilt from 5deg → 3deg for subtler movement
-    const maxTilt = 1; // degrees
-    
-    let bounds = viewer.getBoundingClientRect();
-    let targetX = 0.5, targetY = 0.5;
-    let currentX = 0.5, currentY = 0.5;
-    // Reduced ease from 0.08 → 0.04 for a heavier, smoother response
-    const ease = 0.04;
+
+
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    const maxTilt = isMobile ? 10 : 3;
+
+
+    const easeDown = 0.08;
+    const easeUp = 0.02;
+
     let animationId: number;
+    let targetTiltX = 0,
+      targetTiltY = 0;
+    let currentTiltX = 0,
+      currentTiltY = 0;
 
-    // Update bounds helper
-    const updateBounds = () => {
-      if (!viewer) return;
-      bounds = viewer.getBoundingClientRect();
+
+    const updateTiltMouse = (e: MouseEvent) => {
+      const rect = viewer.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const percentX = (x - centerX) / centerX;
+      const percentY = (y - centerY) / centerY;
+
+      targetTiltY = percentX * maxTilt;
+      targetTiltX = -percentY * maxTilt;
     };
 
-    // Mouse movement handler (use passive listener to avoid blocking)
-    const handleMouseMove = (e: MouseEvent) => {
-      const nx = (e.clientX - bounds.left) / bounds.width;
-      const ny = (e.clientY - bounds.top) / bounds.height;
-      targetX = Math.min(Math.max(nx, 0), 1);
-      targetY = Math.min(Math.max(ny, 0), 1);
+    const resetTilt = () => {
+      targetTiltX = 0;
+      targetTiltY = 0;
     };
 
-    // Reset position on mouse leave
-    const handleMouseLeave = () => {
-      targetX = 0.5;
-      targetY = 0.5;
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      const gamma = event.gamma ?? 0; // Left-right
+      const beta = event.beta ?? 0;   // Front-back
+
+      const percentX = Math.max(-1, Math.min(1, gamma / 45));
+      const percentY = Math.max(-1, Math.min(1, beta / 45));
+
+      targetTiltY = percentX * maxTilt;
+      targetTiltX = -percentY * maxTilt;
     };
 
-    // Animation loop
-    const animate = () => {
-      currentX += (targetX - currentX) * ease;
-      currentY += (targetY - currentY) * ease;
-      
-      const pivotX = `${currentX * 100}%`;
-      const pivotY = `${currentY * 100}%`;
-      const tiltY = (currentX - 0.5) * 2 * maxTilt;
-      const tiltX = (0.5 - currentY) * 2 * maxTilt;
-      
-      if (board) {
-        board.style.transformOrigin = `${pivotX} ${pivotY}`;
-        board.style.transform = 
-          `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    const requestIOSPermission = async () => {
+      try {
+        const permission = await (DeviceOrientationEvent as any).requestPermission();
+        if (permission === 'granted') {
+          window.addEventListener('deviceorientation', handleOrientation, true);
+        }
+      } catch (err) {
+        console.warn('DeviceOrientation permission denied or failed', err);
       }
-      
+    };
+
+    const setupListeners = () => {
+      if (isMobile && typeof DeviceOrientationEvent !== 'undefined') {
+        if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+          requestIOSPermission(); // iOS
+        } else {
+          window.addEventListener('deviceorientation', handleOrientation, true); // Android
+        }
+      } else {
+        viewer.addEventListener('mousemove', updateTiltMouse, { passive: true });
+        viewer.addEventListener('mouseleave', resetTilt);
+      }
+    };
+
+    const removeListeners = () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+      viewer.removeEventListener('mousemove', updateTiltMouse);
+      viewer.removeEventListener('mouseleave', resetTilt);
+    };
+
+    const animate = () => {
+      const deltaX = targetTiltX - currentTiltX;
+      const deltaY = targetTiltY - currentTiltY;
+
+      const easeX = deltaX > 0 ? easeDown : easeUp;
+      const easeY = deltaY > 0 ? easeDown : easeUp;
+
+      currentTiltX += deltaX * easeX;
+      currentTiltY += deltaY * easeY;
+
+      // Clamp to avoid accidental overflow
+      const tiltX = Math.max(-maxTilt, Math.min(maxTilt, currentTiltX));
+      const tiltY = Math.max(-maxTilt, Math.min(maxTilt, currentTiltY));
+
+      board.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+
       animationId = requestAnimationFrame(animate);
     };
-    
-    // Set up event listeners
-    viewer.addEventListener('mousemove', handleMouseMove, { passive: true });
-    viewer.addEventListener('mouseleave', handleMouseLeave);
-    window.addEventListener('resize', updateBounds);
-    
-    // Initial bounds update before starting animation
-    updateBounds();
+
+    setupListeners();
     animate();
-    
-    // Clean up on unmount
+
     return () => {
       cancelAnimationFrame(animationId);
-      viewer.removeEventListener('mousemove', handleMouseMove);
-      viewer.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('resize', updateBounds);
+      removeListeners();
     };
   }, []);
 
   return (
     <Viewer ref={viewerRef}>
-      <PageContainer ref={boardRef} $isDarkMode = {isDarkMode}>
+      <PageContainer ref={boardRef} $isDarkMode={isDarkMode}>
         {children}
       </PageContainer>
     </Viewer>
@@ -121,10 +156,6 @@ const PageContainer = styled.div<{ $isDarkMode: boolean }>`
   transform-origin: 50% 50%;
   transform: rotateX(0deg) rotateY(0deg);
   transition: background 0.2s ease-out, border 0.2s ease-out;
-
-  /* No box-shadow in dark mode; subtle shadow in light mode */
   box-shadow: ${({ $isDarkMode }) =>
     $isDarkMode ? 'none' : '0 2px 15px rgba(0, 0, 0, 0.2)'};
 `;
-
-

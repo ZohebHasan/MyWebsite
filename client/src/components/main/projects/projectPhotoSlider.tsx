@@ -2,23 +2,29 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useDarkMode } from '../../../contexts/darkMode';
 
-import IPFragLight from "../../assets/ipFragLight.png";
-import IPFragDark from "../../assets/ipFragDark.png";
-import Md5Light from "../../assets/md5Light.png";
-import Md5Dark from "../../assets/md5Dark.png";
-import PPMLight from "../../assets/ppmLight.png";
-import PPMDark from "../../assets/ppmDark.png";
-import EnigmaLight from "../../assets/enigmaLight.png";
-import EnigmaDark from "../../assets/enigmaDark.png";
-import FakeStackDark from "../../assets/fakeStackDark.png";
-import FakeStackLight from "../../assets/fakeStackLight.png";
-import PromptCraftLight from "../../assets/promptCraftLight.png";
-import PromptCraftDark from "../../assets/promptCraftDark.png";
+const IPFragLight = "https://zohebhasan.com/assets/ipFragLight.webp";
+const IPFragDark = "https://zohebhasan.com/assets/ipFragDark.webp";
 
-import PrevLight from '../../assets/prevLight.png';
-import PrevDark from '../../assets/prevDark.png';
-import NextLight from '../../assets/nextLight.png';
-import NextDark from '../../assets/nextDark.png';
+const Md5Light = "https://zohebhasan.com/assets/md5Light.webp";
+const Md5Dark = "https://zohebhasan.com/assets/md5Dark.webp";
+
+const PPMLight = "https://zohebhasan.com/assets/ppmLight.webp";
+const PPMDark = "https://zohebhasan.com/assets/ppmDark.webp";
+
+const EnigmaLight = "https://zohebhasan.com/assets/enigmaLight.webp";
+const EnigmaDark = "https://zohebhasan.com/assets/enigmaDark.webp";
+
+const FakeStackLight = "https://zohebhasan.com/assets/fakeStackLight.webp";
+const FakeStackDark = "https://zohebhasan.com/assets/fakeStackDark.webp";
+
+const PromptCraftLight = "https://zohebhasan.com/assets/promptCraftLight.webp";
+const PromptCraftDark = "https://zohebhasan.com/assets/promptCraftDark.webp";
+
+const PrevLight = "https://zohebhasan.com/assets/prevLight.webp";
+const PrevDark = "https://zohebhasan.com/assets/prevDark.webp";
+
+const NextLight = "https://zohebhasan.com/assets/nextLight.webp";
+const NextDark = "https://zohebhasan.com/assets/nextDark.webp";
 
 const media = [
     { light: PromptCraftLight, dark: PromptCraftDark },
@@ -72,7 +78,7 @@ const ProjectPhotoSlider: React.FC<ProjectPhotoSliderProps> = ({ index, setIndex
                         <Dot
                             key={i}
                             $isDarkMode={isDarkMode}
-                            isActive={i === index}
+                            $isActive={i === index}
                         />
                     ))}
                 </DotsIndicatorContainer>
@@ -225,10 +231,10 @@ const DotsIndicatorContainer = styled.div`
   z-index: 1; 
 `;
 
-const Dot = styled.div<{ isActive: boolean; $isDarkMode: boolean }>`
-  width: ${({ isActive }) => (isActive ? '0.6rem' : '0.3rem')};
-  height: ${({ isActive }) => (isActive ? '0.6rem' : '0.3rem')};
-  background-color: ${({ isActive, $isDarkMode }) => (isActive ? ($isDarkMode ? '#e6e6e6f6' : '#2727279e') : ($isDarkMode ? '#e7e7e7' : '#e6e6e6;'))};
+const Dot = styled.div<{ $isActive: boolean; $isDarkMode: boolean }>`
+  width: ${({ $isActive }) => ($isActive ? '0.6rem' : '0.3rem')};
+  height: ${({ $isActive }) => ($isActive ? '0.6rem' : '0.3rem')};
+  background-color: ${({ $isActive, $isDarkMode }) => ($isActive ? ($isDarkMode ? '#e6e6e6f6' : '#2727279e') : ($isDarkMode ? '#e7e7e7' : '#e6e6e6;'))};
   border-radius: 50%;
   transition: all 0.5s ease;
 `;

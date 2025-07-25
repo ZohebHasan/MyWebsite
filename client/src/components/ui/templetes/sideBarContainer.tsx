@@ -18,20 +18,8 @@ const SidebarContainer: React.FC<{ children?: React.ReactNode }> = ({ children }
 
 export default SidebarContainer;
 
-const fadeOutAndMove = keyframes`
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-`;
+
+
 const StyledSideBar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: boolean }>`
   position: fixed;
   top: 0;
@@ -41,7 +29,7 @@ const StyledSideBar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: boole
 
   height: 100vh;
   width: 100vw;
-  z-index: 1;
+  z-index: 3;
 
   backdrop-filter: blur(3px);
   overflow: hidden;

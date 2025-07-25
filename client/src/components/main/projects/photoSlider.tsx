@@ -2,65 +2,63 @@ import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useDarkMode } from '../../../contexts/darkMode';
 
-import LoginDark from '../../assets/loginDark.png';
-import LoginLight from '../../assets/loginLight.png';
 
-import SignupWaysDark from '../../assets/signupWaysDark.png';
-import SignupWaysLight from '../../assets/signupWaysLight.png';
+const LoginDark = "https://zohebhasan.com/assets/loginDark.webp";
+const LoginLight = "https://zohebhasan.com/assets/loginLight.webp";
 
-import DOBLight from '../../assets/dobLight.png';
-import DOBDark from '../../assets/dobDark.png';
+const SignupWaysDark = "https://zohebhasan.com/assets/signupWaysDark.webp";
+const SignupWaysLight = "https://zohebhasan.com/assets/signupWaysLight.webp";
 
-import UserInfoDark from '../../assets/userInfoDark.png';
-import UserInfoLight from '../../assets/userInfoLight.png';
+const DOBLight = "https://zohebhasan.com/assets/dobLight.webp";
+const DOBDark = "https://zohebhasan.com/assets/dobDark.webp";
 
-import VerificationLight from '../../assets/verificationLight.png';
-import VerificationDark from '../../assets/verificationDark.png';
+const UserInfoDark = "https://zohebhasan.com/assets/userInfoDark.webp";
+const UserInfoLight = "https://zohebhasan.com/assets/userInfoLight.webp";
 
-import FeaturesDark from '../../assets/featuresDark.png';
-import FeaturesLight from '../../assets/featuresLight.png';
+const VerificationLight = "https://zohebhasan.com/assets/verificationLight.webp";
+const VerificationDark = "https://zohebhasan.com/assets/verificationDark.webp";
 
-import ProfilesDark from '../../assets/profilesDark.png';
-import ProfilesLight from '../../assets/profilesLight.png';
+const FeaturesDark = "https://zohebhasan.com/assets/featuresDark.webp";
+const FeaturesLight = "https://zohebhasan.com/assets/featuresLight.webp";
 
-import FeedDark from '../../assets/feedDark.png';
-import FeedLight from '../../assets/feedLight.png';
+const ProfilesDark = "https://zohebhasan.com/assets/profilesDark.webp";
+const ProfilesLight = "https://zohebhasan.com/assets/profilesLight.webp";
 
-import CreatePostDark from "../../assets/createPostDark.png"
-import CreatePostLight from "../../assets/createPostLight.png"
+const FeedDark = "https://zohebhasan.com/assets/feedDark.webp";
+const FeedLight = "https://zohebhasan.com/assets/feedLight.webp";
 
-import Optionsdark from '../../assets/optionsDark.png';
-import OptionsLight from '../../assets/optionsLight.png';
+const CreatePostDark = "https://zohebhasan.com/assets/createPostDark.webp";
+const CreatePostLight = "https://zohebhasan.com/assets/createPostLight.webp";
 
-import ProfileOptionsDark from '../../assets/profileOptionsDark.png';
-import ProfileOptionsLight from '../../assets/profileOptionsLight.png';
+const OptionsDark = "https://zohebhasan.com/assets/optionsDark.webp";
+const OptionsLight = "https://zohebhasan.com/assets/optionsLight.webp";
 
-import PostFilterDark from '../../assets/postFilterDark.png';
-import PostFilterLight from '../../assets/postFilterLight.png';
+const ProfileOptionsDark = "https://zohebhasan.com/assets/profileOptionsDark.webp";
+const ProfileOptionsLight = "https://zohebhasan.com/assets/profileOptionsLight.webp";
 
-import PersonalDark from '../../assets/personalDark.png';
-import PersonalLight from '../../assets/personalLight.png';
+const PostFilterDark = "https://zohebhasan.com/assets/postFilterDark.webp";
+const PostFilterLight = "https://zohebhasan.com/assets/postFilterLight.webp";
 
-import ProfessionalDark from '../../assets/professionalDark.png';
-import ProfessionalLight from '../../assets/professionalLight.png';
+const PersonalDark = "https://zohebhasan.com/assets/personalDark.webp";
+const PersonalLight = "https://zohebhasan.com/assets/personalLight.webp";
 
-import SchoolDark from '../../assets/schoolDark.png';
-import SchoolLight from '../../assets/schoolLight.png';
+const ProfessionalDark = "https://zohebhasan.com/assets/professionalDark.webp";
+const ProfessionalLight = "https://zohebhasan.com/assets/professionalLight.webp";
 
-import CreateCourseOneDark from '../../assets/createCourseOneDark.png';
-import CreateCourseOneLight from '../../assets/createCourseOneLight.png';
+const SchoolDark = "https://zohebhasan.com/assets/schoolDark.webp";
+const SchoolLight = "https://zohebhasan.com/assets/schoolLight.webp";
 
-import CreateCourseTwoDark from '../../assets/createCourseTwoDark.png';
-import CreateCourseTwoLight from '../../assets/createCourseTwoLight.png';
+const CreateCourseOneDark = "https://zohebhasan.com/assets/createCourseOneDark.webp";
+const CreateCourseOneLight = "https://zohebhasan.com/assets/createCourseOneLight.webp";
 
+const CreateCourseTwoDark = "https://zohebhasan.com/assets/createCourseTwoDark.webp";
+const CreateCourseTwoLight = "https://zohebhasan.com/assets/createCourseTwoLight.webp";
 
-import PrevLight from '../../assets/prevLight.png';
-import PrevDark from '../../assets/prevDark.png';
+const PrevLight = "https://zohebhasan.com/assets/prevLight.webp";
+const PrevDark = "https://zohebhasan.com/assets/prevDark.webp";
 
-import NextLight from '../../assets/nextLight.png';
-import NextDark from '../../assets/nextDark.png';
-
-
+const NextLight = "https://zohebhasan.com/assets/nextLight.webp";
+const NextDark = "https://zohebhasan.com/assets/nextDark.webp";
 
 const media = [
   { light: LoginLight, dark: LoginDark },
@@ -68,11 +66,11 @@ const media = [
   { light: DOBLight, dark: DOBDark },
   { light: UserInfoLight, dark: UserInfoDark },
   { light: VerificationLight, dark: VerificationDark },
-  { light: FeaturesDark, dark:  FeaturesLight},
-  { light: ProfilesDark, dark:  ProfilesLight},
+  { light: FeaturesDark, dark: FeaturesLight },
+  { light: ProfilesDark, dark: ProfilesLight },
   { light: FeedLight, dark: FeedDark },
   { light: CreatePostLight, dark: CreatePostDark },
-  { light: OptionsLight, dark: Optionsdark },
+  { light: OptionsLight, dark: OptionsDark },
   { light: ProfileOptionsLight, dark: ProfileOptionsDark },
   { light: PostFilterLight, dark: PostFilterDark },
   { light: PersonalLight, dark: PersonalDark },
@@ -129,7 +127,7 @@ const MediaScroller: React.FC = () => {
             <Dot
               key={index}
               $isDarkMode={isDarkMode}
-              isActive={index === currentMediaIndex}
+              $isActive={index === currentMediaIndex}
             />
           ))}
         </DotsIndicatorContainer>
@@ -271,10 +269,10 @@ const DotsIndicatorContainer = styled.div`
   z-index: 1; 
 `;
 
-const Dot = styled.div<{ isActive: boolean; $isDarkMode: boolean }>`
-  width: ${({ isActive }) => (isActive ? '0.6rem' : '0.3rem')};
-  height: ${({ isActive }) => (isActive ? '0.6rem' : '0.3rem')};
-  background-color: ${({ isActive, $isDarkMode }) => (isActive ? ($isDarkMode ? '#e6e6e6f6' : '#2727279e') : ($isDarkMode ? '#e7e7e7' : '#e6e6e6;'))};
+const Dot = styled.div<{ $isActive: boolean; $isDarkMode: boolean }>`
+  width: ${({ $isActive }) => ($isActive ? '0.6rem' : '0.3rem')};
+  height: ${({ $isActive }) => ($isActive ? '0.6rem' : '0.3rem')};
+  background-color: ${({ $isActive, $isDarkMode }) => ($isActive ? ($isDarkMode ? '#e6e6e6f6' : '#2727279e') : ($isDarkMode ? '#e7e7e7' : '#e6e6e6;'))};
   border-radius: 50%;
   transition: all 0.5s ease;
 `;

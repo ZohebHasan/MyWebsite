@@ -5,24 +5,23 @@ import { useDarkMode } from '../../../contexts/darkMode';
 
 
 
+const FeaturesDark = "https://zohebhasan.com/assets/featuresDark.webp";
+const FeaturesLight = "https://zohebhasan.com/assets/featuresLight.webp";
 
-import FeaturesDark from '../../assets/featuresDark.png';
-import FeaturesLight from '../../assets/featuresLight.png';
+const ProfilesDark = "https://zohebhasan.com/assets/profilesDark.webp";
+const ProfilesLight = "https://zohebhasan.com/assets/profilesLight.webp";
 
-import ProfilesDark from '../../assets/profilesDark.png';
-import ProfilesLight from '../../assets/profilesLight.png';
+const PrevLight = "https://zohebhasan.com/assets/prevLight.webp";
+const PrevDark = "https://zohebhasan.com/assets/prevDark.webp";
 
-import PrevLight from '../../assets/prevLight.png';
-import PrevDark from '../../assets/prevDark.png';
-
-import NextLight from '../../assets/nextLight.png';
-import NextDark from '../../assets/nextDark.png';
+const NextLight = "https://zohebhasan.com/assets/nextLight.webp";
+const NextDark = "https://zohebhasan.com/assets/nextDark.webp";
 
 
 
 const media = [
-  { light: FeaturesDark, dark:  FeaturesLight},
-  { light: ProfilesDark, dark:  ProfilesLight},
+  { light: FeaturesDark, dark: FeaturesLight },
+  { light: ProfilesDark, dark: ProfilesLight },
 ];
 
 const ConnectFeatureScroller: React.FC = () => {
@@ -72,7 +71,7 @@ const ConnectFeatureScroller: React.FC = () => {
             <Dot
               key={index}
               $isDarkMode={isDarkMode}
-              isActive={index === currentMediaIndex}
+              $isActive={index === currentMediaIndex}
             />
           ))}
         </DotsIndicatorContainer>
@@ -214,10 +213,10 @@ const DotsIndicatorContainer = styled.div`
   z-index: 1; 
 `;
 
-const Dot = styled.div<{ isActive: boolean; $isDarkMode: boolean }>`
-  width: ${({ isActive }) => (isActive ? '0.6rem' : '0.3rem')};
-  height: ${({ isActive }) => (isActive ? '0.6rem' : '0.3rem')};
-  background-color: ${({ isActive, $isDarkMode }) => (isActive ? ($isDarkMode ? '#e6e6e6f6' : '#2727279e') : ($isDarkMode ? '#e7e7e7' : '#e6e6e6;'))};
+const Dot = styled.div<{ $isActive: boolean; $isDarkMode: boolean }>`
+  width: ${({ $isActive }) => ($isActive ? '0.6rem' : '0.3rem')};
+  height: ${({ $isActive }) => ($isActive ? '0.6rem' : '0.3rem')};
+  background-color: ${({ $isActive, $isDarkMode }) => ($isActive ? ($isDarkMode ? '#e6e6e6f6' : '#2727279e') : ($isDarkMode ? '#e7e7e7' : '#e6e6e6;'))};
   border-radius: 50%;
   transition: all 0.5s ease;
 `;

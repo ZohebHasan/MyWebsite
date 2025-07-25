@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { useDarkMode } from '../../contexts/darkMode';
@@ -7,43 +7,126 @@ import SidebarContainer from '../ui/templetes/sideBarContainer';
 import Text from '../ui/elements/text';
 import Toggle from '../ui/elements/toggle';
 
-import InfoDark from "../assets/infoDark.png";
-import InfoLight from "../assets/infoLight.png";
-
-import MinimizeDark from "../assets/minimizeDark.png";
-import MinimizeLight from "../assets/minimizeLight.png";
-
-import AccessibilityDark from "../assets/accessibilityDark.png";
-import AccessibilityLight from "../assets/accessibilityLight.png";
-
 import ColorBlindnessDropDown from '../ui/elements/colorBlindnessDropdown';
-import ColorOptionBar from '../ui/elements/colorOptionBar';
+
 import TextSizeDial from '../ui/elements/textSizeDial';
 
 import DarkModeDropDown from '../ui/elements/darkModeDropdown';
 
+import { useReducedMotion } from '../../contexts/reducedMotionContext';
+
+import { useScroll } from '../../contexts/scroll';
+
 
 
 const Sidebar: React.FC = () => {
-    const { isDarkMode } = useDarkMode();
-    const [on, setOn] = useState(false);
-    const [showInfo, setShowInfo] = useState(false);
+    const { isDarkMode, isHighContrast, toggleContrast } = useDarkMode();
+    const { resetToDefault: resetDarkMode } = useDarkMode();
+    const { resetToDefault: resetReducedMotion } = useReducedMotion();
 
-    const handleToggle = () => {
-        setOn(prev => !prev);
+    const resetAllAccessibilitySettings = () => {
+        resetDarkMode();
+        resetReducedMotion();
     };
+    const { isReducedMotion, toggleReducedMotion, isReadableFont, toggleReadableFont } = useReducedMotion();
 
-    const handleInfoToggle = () => {
-        setShowInfo(prev => !prev);
-    };
+    const [isDarkModeInfoVisible, setDarkModeInfoVisible] = useState(false);
+    const [isHighContrastInfoVisible, setHighContrastInfoVisible] = useState(false);
+    const [isReducedMotionInfoVisible, setReducedMotionInfoVisible] = useState(false);
+    const [isReadableFontInfoVisible, setReadableFontInfoVisible] = useState(false);
+    const [isColorBlindnessInfoVisible, setColorBlindnessInfoVisible] = useState(false);
+    const [isTextSizeInfoVisible, setTextSizeInfoVisible] = useState(false);
+
+    const toggleDarkModeInfo = () => setDarkModeInfoVisible(prev => !prev);
+    const toggleHighContrastInfo = () => setHighContrastInfoVisible(prev => !prev);
+    const toggleReducedMotionInfo = () => setReducedMotionInfoVisible(prev => !prev);
+    const toggleReadableFontInfo = () => setReadableFontInfoVisible(prev => !prev);
+    const toggleColorBlindnessInfo = () => setColorBlindnessInfoVisible(prev => !prev);
+    const toggleTextSizeInfo = () => setTextSizeInfoVisible(prev => !prev);
+    const { scrollTo, projectsRef, aboutRef, contactRef, showStickyButtons } = useScroll();
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const InfoDark = "https://zohebhasan.com/assets/infoDark.webp";
+    const InfoLight = "https://zohebhasan.com/assets/infoLight.webp";
+
+    const MinimizeDark = "https://zohebhasan.com/assets/minimizeDark.webp";
+    const MinimizeLight = "https://zohebhasan.com/assets/minimizeLight.webp";
+
+    const AccessibilityDark = "https://zohebhasan.com/assets/accessibilityDark.webp";
+    const AccessibilityLight = "https://zohebhasan.com/assets/accessibilityLight.webp";
+
+    const RightDark = "https://zohebhasan.com/assets/rightCircleDark.webp";
+    const RightLight = "https://zohebhasan.com/assets/rightCircleLight.webp";
+
+    const NavDark = "https://zohebhasan.com/assets/navDark.webp";
+    const NavLight = "https://zohebhasan.com/assets/navLight.webp";
 
     return (
         <SidebarContainer>
-            {/* <ColorOptionBar/> */}
             <SideBarWrapper>
+                {showStickyButtons && isMobile && (
+                    <>
+                        <TitleContainer>
+                            <AccessibilityIcon src={isDarkMode ? NavDark : NavLight} />
+                            <Text size={"2rem"} variant={"normal"} fontWeight="300">
+                                Navigation
+                            </Text>
+                        </TitleContainer>
+                        <SettingsList>
+                            <Setting>
+                                <Top>
+                                    <Left>
+                                        <StyledLink
+                                            $isDarkMode={isDarkMode}
+                                            onClick={() => scrollTo(projectsRef)}
+                                        >
+                                            <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
+                                                Projects
+                                            </Text>
+                                        </StyledLink>
+                                    </Left>
+                                </Top>
+                            </Setting>
+                            <Setting>
+                                <Top>
+                                    <Left>
+                                        <StyledLink
+                                            $isDarkMode={isDarkMode}
+                                            onClick={() => scrollTo(aboutRef)}
+                                        >
+                                            <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
+                                                About
+                                            </Text>
+                                        </StyledLink>
+                                    </Left>
+                                </Top>
+                            </Setting>
+                            <Setting>
+                                <Top>
+                                    <Left>
+                                        <StyledLink
+                                            $isDarkMode={isDarkMode}
+                                            onClick={() => scrollTo(contactRef)}
+                                        >
+                                            <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
+                                                Contact
+                                            </Text>
+                                        </StyledLink>
+                                    </Left>
+                                </Top>
+                            </Setting>
+                        </SettingsList>
+                    </>
+                )}
                 <TitleContainer>
                     <AccessibilityIcon src={isDarkMode ? AccessibilityDark : AccessibilityLight} />
-                    <Text size={"3rem"} variant={"normal"} fontWeight="300">
+                    <Text size={"2rem"} variant={"normal"} fontWeight="300">
                         Accessibility settings
                     </Text>
                 </TitleContainer>
@@ -54,20 +137,18 @@ const Sidebar: React.FC = () => {
                                 <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
                                     Dark Mode
                                 </Text>
-                                <InfoButtonContainer onClick={handleInfoToggle}>
-                                    <InfoIcon src={showInfo ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
+                                <InfoButtonContainer onClick={toggleDarkModeInfo}>
+                                    <InfoIcon src={isDarkModeInfoVisible ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
                                 </InfoButtonContainer>
                             </Left>
                             <ButtonContainer>
-                                <DarkModeDropDown/>
+                                <DarkModeDropDown />
                             </ButtonContainer>
                         </Top>
                         <Bottom>
-                            <Info $visible={showInfo}>
+                            <Info $visible={isDarkModeInfoVisible}>
                                 <Text size={"0.9rem"} variant={"transparent"} fontWeight="300">
-                                    Readable Fonts Mode switches the website’s font to a more
-                                    legible, high-contrast typeface — such as Arial, Verdana, Lexend,
-                                    or OpenDyslexic.
+                                    Reduces screen brightness by using darker colors to ease eye strain.
                                 </Text>
                             </Info>
                         </Bottom>
@@ -78,19 +159,18 @@ const Sidebar: React.FC = () => {
                                 <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
                                     High contrast mode
                                 </Text>
-                                <InfoButtonContainer onClick={handleInfoToggle}>
-                                    <InfoIcon src={showInfo ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
+                                <InfoButtonContainer onClick={toggleHighContrastInfo}>
+                                    <InfoIcon src={isHighContrastInfoVisible ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
                                 </InfoButtonContainer>
                             </Left>
                             <ButtonContainer>
-                                <Toggle isOn={on} toggleOn={handleToggle} />
+                                <Toggle isOn={isHighContrast} toggleOn={toggleContrast} />
                             </ButtonContainer>
                         </Top>
                         <Bottom>
-                            <Info $visible={showInfo}>
+                            <Info $visible={isHighContrastInfoVisible}>
                                 <Text size={"0.9rem"} variant={"transparent"} fontWeight="300">
-                                    Contrast Mode enhances the visual difference between text and background colors, making interface elements easier to distinguish.
-                                    It’s especially helpful for users with low vision or color perception challenges.
+                                    Boosts the difference between text and background for better readability.
                                 </Text>
                             </Info>
                         </Bottom>
@@ -101,21 +181,18 @@ const Sidebar: React.FC = () => {
                                 <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
                                     Reduced Motion
                                 </Text>
-                                <InfoButtonContainer onClick={handleInfoToggle}>
-                                    <InfoIcon src={showInfo ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
+                                <InfoButtonContainer onClick={toggleReducedMotionInfo}>
+                                    <InfoIcon src={isReducedMotionInfoVisible ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
                                 </InfoButtonContainer>
                             </Left>
                             <ButtonContainer>
-                                <Toggle isOn={on} toggleOn={handleToggle} />
+                                <Toggle isOn={isReducedMotion} toggleOn={toggleReducedMotion} />
                             </ButtonContainer>
                         </Top>
                         <Bottom>
-                            <Info $visible={showInfo}>
+                            <Info $visible={isReducedMotionInfoVisible}>
                                 <Text size={"0.9rem"} variant={"transparent"} fontWeight="300">
-                                    Contrast Mode enhances the visual difference between text and
-                                    background colors, making interface elements easier to distinguish.
-                                    It’s especially helpful for users with low vision or color perception
-                                    challenges.
+                                    Disables animations and transitions for motion-sensitive users.
                                 </Text>
                             </Info>
                         </Bottom>
@@ -126,20 +203,18 @@ const Sidebar: React.FC = () => {
                                 <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
                                     Readable fonts mode
                                 </Text>
-                                <InfoButtonContainer onClick={handleInfoToggle}>
-                                    <InfoIcon src={showInfo ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
+                                <InfoButtonContainer onClick={toggleReadableFontInfo}>
+                                    <InfoIcon src={isReadableFontInfoVisible ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
                                 </InfoButtonContainer>
                             </Left>
                             <ButtonContainer>
-                                <Toggle isOn={on} toggleOn={handleToggle} />
+                                <Toggle isOn={isReadableFont} toggleOn={toggleReadableFont} />
                             </ButtonContainer>
                         </Top>
                         <Bottom>
-                            <Info $visible={showInfo}>
+                            <Info $visible={isReadableFontInfoVisible}>
                                 <Text size={"0.9rem"} variant={"transparent"} fontWeight="300">
-                                    Readable Fonts Mode switches the website’s font to a more
-                                    legible, high-contrast typeface — such as Arial, Verdana, Lexend,
-                                    or OpenDyslexic.
+                                    Uses cleaner, high-legibility fonts for easier reading.
                                 </Text>
                             </Info>
                         </Bottom>
@@ -150,8 +225,8 @@ const Sidebar: React.FC = () => {
                                 <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
                                     Color blindness filters
                                 </Text>
-                                <InfoButtonContainer onClick={handleInfoToggle}>
-                                    <InfoIcon src={showInfo ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
+                                <InfoButtonContainer onClick={toggleColorBlindnessInfo}>
+                                    <InfoIcon src={isColorBlindnessInfoVisible ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
                                 </InfoButtonContainer>
                             </Left>
                             <ButtonContainer>
@@ -159,11 +234,9 @@ const Sidebar: React.FC = () => {
                             </ButtonContainer>
                         </Top>
                         <Bottom>
-                            <Info $visible={showInfo}>
+                            <Info $visible={isColorBlindnessInfoVisible}>
                                 <Text size={"0.9rem"} variant={"transparent"} fontWeight="300">
-                                    Readable Fonts Mode switches the website’s font to a more
-                                    legible, high-contrast typeface — such as Arial, Verdana, Lexend,
-                                    or OpenDyslexic.
+                                    Applies visual filters to support different types of color blindness.
                                 </Text>
                             </Info>
                         </Bottom>
@@ -174,8 +247,8 @@ const Sidebar: React.FC = () => {
                                 <Text size={"1.2rem"} variant={"transparent"} fontWeight="300">
                                     Text size adjustment
                                 </Text>
-                                <InfoButtonContainer onClick={handleInfoToggle}>
-                                    <InfoIcon src={showInfo ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
+                                <InfoButtonContainer onClick={toggleTextSizeInfo}>
+                                    <InfoIcon src={isTextSizeInfoVisible ? isDarkMode ? MinimizeDark : MinimizeLight : isDarkMode ? InfoDark : InfoLight} />
                                 </InfoButtonContainer>
                             </Left>
                             <ButtonContainer>
@@ -183,14 +256,25 @@ const Sidebar: React.FC = () => {
                             </ButtonContainer>
                         </Top>
                         <Bottom>
-                            <Info $visible={showInfo}>
+                            <Info $visible={isTextSizeInfoVisible}>
                                 <Text size={"0.9rem"} variant={"transparent"} fontWeight="300">
-                                    Readable Fonts Mode switches the website’s font to a more
-                                    legible, high-contrast typeface — such as Arial, Verdana, Lexend,
-                                    or OpenDyslexic.
+                                    Lets you increase or decrease the text size for better visibility.
                                 </Text>
                             </Info>
                         </Bottom>
+                    </Setting>
+                    <Setting>
+                        <ResetButtonWrapper>
+
+
+                            <ResetButton $isDarkMode={isDarkMode} onClick={resetAllAccessibilitySettings}>
+                                <Text size={"1.2rem"} variant={"normal"} fontWeight="300">
+                                    Reset to default
+                                </Text>
+
+                                <Icon src={isDarkMode ? RightDark : RightLight} />
+                            </ResetButton>
+                        </ResetButtonWrapper>
                     </Setting>
                 </SettingsList>
             </SideBarWrapper>
@@ -199,8 +283,59 @@ const Sidebar: React.FC = () => {
 };
 
 export default Sidebar;
+
+const StyledLink = styled.div<{ $isDarkMode: boolean }>`
+  cursor: pointer;
+  /* color: ${({ $isDarkMode }) => ($isDarkMode ? '#bbbbbb' : '#555555')}; */
+  /* font-size: 0.9rem;
+  font-weight: 400; */
+  transition: transform 0.2s, color 0.2s;
+  margin-bottom: 1rem;
+
+
+  &:hover {
+    transform: scale(1.05);
+    /* color: ${({ $isDarkMode }) => ($isDarkMode ? '#ffffff' : '#000000')}; */
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+const ResetButtonWrapper = styled.div`
+    display: flex;
+`
+const ResetButton = styled.div<{ $isDarkMode: boolean }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  cursor: pointer;
+
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+    opacity: 0.7;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+`;
+
+const Icon = styled.img`
+    width: 1.3rem;
+`
+
 const AccessibilityIcon = styled.img`
   width: 3rem;
+  @media (max-width: 768px) {
+     width: 2rem;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -208,6 +343,7 @@ const TitleContainer = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 1rem;
+  /* background-color: blue; */
 `;
 
 const InfoIcon = styled.img`
@@ -222,6 +358,9 @@ const InfoIcon = styled.img`
 
   &:active {
     transform: scale(0.95);
+  }
+  @media (max-width: 768px) {
+     width: 0.7rem;
   }
 `;
 
@@ -238,12 +377,16 @@ const InfoButtonContainer = styled.div`
   cursor: pointer;
 `;
 
-const Bottom = styled.div``;
+const Bottom = styled.div`
+background-color: black;
+/* width: 100%;; */
+`;
 
 const Top = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* background-color: green; */
 `;
 
 
@@ -254,6 +397,10 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
   padding-right: 2rem;
   margin-right: 2rem;
+ @media (max-width: 768px) {
+      padding-right: 1rem; 
+      margin-right: 0rem;
+  }
   /* background-color: blue; */
 `;
 
@@ -271,19 +418,34 @@ const Left = styled.div`
 const Setting = styled.div`
   display: flex;
   flex-direction: column;
+  /* background-color: blue; */
+   @media (max-width: 768px) {
+     width: 100%;
+     /* align-items: center; */
+  }
 `;
 
 const SettingsList = styled.div`
   display: flex;
   flex-direction: column;
+  /* align-items: center;
+  justify-content: center; */
+  /* margin-bottom: 5rem; */
+  /* background-color: orange; */
 `;
 
 const SideBarWrapper = styled.div`
   display: flex;
+  /* background-color: pink; */
   flex-direction: column;
+  /* align-items: center; */
   overflow-y: auto;
   width: 60%;
   min-height: 100vh;
   margin-top: 4rem;
-  padding-top: 2rem;
+  padding-top: 2rem; 
+  @media (max-width: 768px) {
+     width: 80%;
+  }
+  /* margin-bottom: 5rem; */
 `;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { InputField, Label } from './styles/inputStyle';
+
 import InputContainer from './containers/inputContainer';
 import { useDarkMode } from '../../../../contexts/darkMode';
 
@@ -115,13 +115,52 @@ const FloatingLabel = styled.label<{ $isDarkMode: boolean }>`
   transition: top 0.3s, font-size 0.3s;
   pointer-events: none;
   color: ${({ $isDarkMode }) => ($isDarkMode ? '#919191' : '#595858')};
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   font-weight: 300;
 
   textarea:focus + &,
   textarea:not(:placeholder-shown) + & {
     top: 0.25rem;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     color: #ED1E79;
   }
 `;
+
+
+export const InputField = styled.input<{ $isDarkMode: boolean }>`
+  padding: 1rem 1.3rem; 
+  width: 100%;
+  border-radius: 2rem;
+  border: ${({ $isDarkMode }) => $isDarkMode ? '0.05rem solid rgb(252, 105, 186)' : '0.09375rem solid rgb(254, 178, 224)'}; /* 0.8px and 1.5px */
+  outline: none;
+  font-size: 1rem; /* 18px */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px */
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+  color: ${({ $isDarkMode }) => $isDarkMode ? 'white' : 'black'}; 
+
+  background-color: transparent;
+
+  &:focus {
+      border-color: #ED1E79;
+  }
+`;
+
+export const Label = styled.label<{ $isDarkMode: boolean }>`
+  position: absolute;
+  left: 1.5rem; 
+  top: 1rem; 
+  transition: top 0.3s, font-size 0.3s;
+  pointer-events: none;
+  color: ${({ $isDarkMode }) => $isDarkMode ? '#919191' : '#595858'}; 
+  font-size: 0.7rem; 
+  font-weight: 300;
+
+  ${InputField}:focus + &,
+  ${InputField}:not(:placeholder-shown) + & {  // Ensuring the label stays up if the input is not empty
+    top: 0.1875rem; /* 3px */
+    font-size: 0.6rem; /* 12px */
+     color: #ED1E79;
+  }
+`;
+
+

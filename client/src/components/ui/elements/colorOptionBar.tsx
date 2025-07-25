@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDarkMode } from '../../../contexts/darkMode';
-import { useAccessibility } from '../../../contexts/accessibility';
+import { useColorBlind} from '../../../contexts/colorBlind';
 import Options from "./colorOptions"
 
 const ColorBlindBar: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-    const { isColorBlindPannelOpen, addProtectedRef, removeProtectedRef } = useAccessibility();
+    const { isColorBlindPannelOpen, addProtectedRef, removeProtectedRef } = useColorBlind();
     const { isDarkMode } = useDarkMode();
     const colorBlindBarRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +54,10 @@ const StyledColorBlindBar = styled.div<{ $isProfileBarOpen?: boolean; $isDarkMod
     background-color: ${$isDarkMode ? 'rgba(33, 33, 33, 0.9)' : 'rgba(255, 255, 255, 0.9)'};
   `}
   border-radius: 0.5rem;
-  min-width: 11.2rem;
+  min-width: 10.5rem;
+@media (max-width: 768px) {
+    min-width: 7.3rem;
+  }
   position: absolute;
   backdrop-filter: blur(3px);
   overflow-x: hidden;

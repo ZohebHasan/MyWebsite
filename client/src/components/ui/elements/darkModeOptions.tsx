@@ -1,60 +1,83 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import SelectLogo from "./buttonLogo";
 import Text from './text';
 
-import SelectedDark from "../../assets/selectedDark.png";
-import SelectedLight from "../../assets/selectedLight.png";
-import NotSelectedLight from "../../assets/notSelectedLight.png";
-import NotSelectedDark from "../../assets/notSelectedDark.png";
-
-
-
 import { useDarkMode } from '../../../contexts/darkMode';
-import { ColorMode, useAccessibility } from '../../../contexts/accessibility';
+
+const modeOptions: ('system' | 'dark' | 'light')[] = ['system', 'dark', 'light'];
 
 const DarkModeOptions: React.FC = () => {
-  const { isDarkMode } = useDarkMode();
-  const { handleColorModeChange, isProtanopia, isDeuteranopia, isTritanopia } = useAccessibility();
+  const {
+    isDarkMode,
+    isHighContrast,
+    activeColor,
+    activeMode,
+    setActiveMode,
+  } = useDarkMode();
 
+  const SystemDark = "https://zohebhasan.com/assets/settingDark.webp";
+  const SystemLight = "https://zohebhasan.com/assets/settingLight.webp";
 
+  const SunDark = "https://zohebhasan.com/assets/sunDark.webp";
+  const SunLight = "https://zohebhasan.com/assets/sunLight.webp";
 
-  const colorTypes: ColorMode[] = ['protanopia', 'deuteranopia', 'tritanopia'];
+  const MoonDark = "https://zohebhasan.com/assets/moonDark.webp";
+  const MoonLight = "https://zohebhasan.com/assets/moonLight.webp";
+
+  const getLabelAndIcon = (
+    mode: 'system' | 'dark' | 'light'
+  ): { label: string; icon: string } => {
+    switch (mode) {
+      case 'dark':
+        return {
+          label: 'Dark',
+          icon: isDarkMode ? MoonDark : MoonLight,
+        };
+      case 'light':
+        return {
+          label: 'Light',
+          icon: isDarkMode ? SunDark : SunLight,
+        };
+      case 'system':
+      default:
+        return {
+          label: 'System',
+          icon: isDarkMode ? SystemDark : SystemLight,
+        };
+    }
+  };
 
   return (
     <>
-      {colorTypes.map((type) => {
-        const isActive =
-          (type === 'protanopia' && isProtanopia) ||
-          (type === 'deuteranopia' && isDeuteranopia) ||
-          (type === 'tritanopia' && isTritanopia);
+      {modeOptions.map((mode) => {
+        const { label, icon } = getLabelAndIcon(mode);
+        const isActive = activeMode === mode;
+
+        const isBlocked =
+          (activeColor !== 'default' && (mode === 'dark' || mode === 'system')) || // prevent dark/system when colorblind
+          (isHighContrast && mode === 'light');                                    // prevent light when high contrast
 
         return (
           <ButtonLink
-            key={type}
+            key={mode}
             $isDarkMode={isDarkMode}
-            onClick={() => handleColorModeChange(type)}
+            onClick={() => {
+              if (isBlocked) return;
+              setActiveMode(mode);
+            }}
           >
-            <ButtonContainer $isDarkMode={isDarkMode}>
-              <TextContainer>
-                <Text size={"0.8rem"} variant={"transparent"} fontWeight="500">
-                  System (Default)
-                </Text>
-                {/* <ColorBox /> */}
-              </TextContainer>
-              <SelectLogoContainer>
-                <SelectLogo
-                  darkModeLogo={NotSelectedDark}
-                  lightModeLogo={NotSelectedLight}
-                  activeDarkLogo={SelectedDark}
-                  activeLightLogo={SelectedLight}
-                  isActive={isActive}
-                  size={0.8}
-                />
-              </SelectLogoContainer>
+            <ButtonContainer $isDarkMode={isDarkMode} $isActive={isActive}>
+              <OptionContainer>
+                <TextContainer>
+                  <Text size={"0.8rem"} variant={"transparent"} fontWeight="500">
+                    {label}
+                  </Text>
+                </TextContainer>
+                <IconContainer>
+                  <Icon src={icon} />
+                </IconContainer>
+              </OptionContainer>
             </ButtonContainer>
-
           </ButtonLink>
         );
       })}
@@ -64,59 +87,64 @@ const DarkModeOptions: React.FC = () => {
 
 export default DarkModeOptions;
 
-const ColorBox = styled.div`
-    height: 0.8rem;
-    width: 0.8rem;
-    background-color: red;
-    border-radius: 0.2rem;
-`
-
-const SelectLogoContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* width: 100%; */
-    flex: 1;
+// ---------- Styles ----------
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
 `;
 
 const TextContainer = styled.div`
-  /* background-color: blue; */
-  flex: 4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+`;
+
+const Icon = styled.img`
+  width: 1.2rem;
+  height: 1.2rem;
+  opacity: 0.7;
+`;
+
+const OptionContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-`
+  width: 100%;
+`;
 
-const ButtonContainer = styled.div<{ $isDarkMode: boolean }>`
-  width: 100%;;
-  /* background-color:orange; */
+const ButtonContainer = styled.div<{ $isDarkMode: boolean; $isActive: boolean }>`
+  width: 100%;
   display: flex;
   flex-direction: row;
   padding: 0.3rem;
-  margin: 0.3rem 0.3rem; 
+  margin: 0.3rem 0.3rem;
   border-radius: 0.5rem;
+  background-color: ${({ $isDarkMode, $isActive }) =>
+    $isActive ? ($isDarkMode ? '#6c6c6c' : '#a2a2a2') : 'transparent'};
   transition: transform 0.2s ease-in-out, color 0.3s, opacity 0.3s ease-in-out;
-  &:hover {
-      color: ${({ $isDarkMode }) => ($isDarkMode ? 'white' : 'black')};
-      background-color: ${({ $isDarkMode }) => ($isDarkMode ? '#6c6c6c' : '#a2a2a2')};
-      transition: color 0.3s, background-color 0.3s, opacity 0.3s ease-in-out;
-      opacity: 0.8;
-      transform: scale(1.05); 
-  }
-  &:active {
-      background-color: ${({ $isDarkMode }) => ($isDarkMode ? '#919191' : '#595858')};
-      transition: color 0.2s, background-color 0.2s;
-      transform: scale(1.00);
-  } 
-`
 
-const ButtonLink = styled.div<{ $isDarkMode: boolean }>`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+  &:hover {
+    color: ${({ $isDarkMode }) => ($isDarkMode ? 'white' : 'black')};
+    background-color: ${({ $isDarkMode }) => ($isDarkMode ? '#6c6c6c' : '#a2a2a2')};
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background-color: ${({ $isDarkMode }) => ($isDarkMode ? '#919191' : '#595858')};
+    transform: scale(1.0);
+  }
 `;
 
+const ButtonLink = styled.div<{ $isDarkMode: boolean }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;

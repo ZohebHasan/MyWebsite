@@ -4,14 +4,16 @@ import styled from 'styled-components';
 import Text from './text';
 import ConnectLogo from './connectLogo';
 
-import StonyBrookLogo from '../../assets/stonybrook.png';
-import RobiLogo from '../../assets/robi.svg';
-import NirontorLogo from '../../assets/nirontor.png';
-import ChocolateApaLogo from '../../assets/chocolateApa.png';
+
 
 const Associations: React.FC = () => {
-  const size = 1;
 
+  const StonyBrookLogo = "https://zohebhasan.com/assets/stonybrook.webp";
+  const RobiLogo = "https://zohebhasan.com/assets/robi.webp"; 
+  const NirontorLogo = "https://zohebhasan.com/assets/nirontor.webp";
+  const ChocolateApaLogo = "https://zohebhasan.com/assets/chocolateApa.webp";
+
+  const size = 1;
   return (
     <AssociationsContainer>
       <DecorativeLineContainer>
@@ -75,12 +77,22 @@ const StyledLogo = styled.img<{ size: number; type: string }>`
 
   @media (max-width: 1280px) {
     width: ${({ type }) => {
-      if (type === 'stonybrook') return '1rem';
-      if (type === 'robi') return '1.5rem';
-      if (type === 'nirontor') return '1.2rem';
-      if (type === 'chocolateapa') return '1.4rem';
-      return '1rem';
-    }};
+    if (type === 'stonybrook') return '1.8rem';
+    if (type === 'robi') return '2rem';
+    if (type === 'nirontor') return '2.2rem';
+    if (type === 'chocolateapa') return '2rem';
+    return '1.5rem';
+  }};
+  }
+
+  @media (max-width: 768px) {
+    width: ${({ type }) => {
+    if (type === 'stonybrook') return '2.5rem';
+    if (type === 'robi') return '2rem';
+    if (type === 'nirontor') return '2rem';
+    if (type === 'chocolateapa') return '2rem';
+    return '1rem';
+  }};
   }
 `;
 

@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import Conna from "../../assets/conna_final.webm";
 
 const ConnaButton: React.FC = () => {
+
+  const Conna = "https://zohebhasan.com/assets/conna_final.webm";
+  
   return (
     <VideoContainer>
       <video autoPlay loop muted>

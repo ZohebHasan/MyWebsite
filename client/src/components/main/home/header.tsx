@@ -7,14 +7,8 @@ import DarkLightToggle from '../../ui/elements/darkLightToggle';
 import Logo from '../../ui/elements/logo';
 import OptionButton from '../../ui/elements/optionButton';
 
-import LinkedinDark from "../../assets/linkedinDark.png"
-import LinkedinLight from "../../assets/linkedinLight.png"
 
-import GithubDark from "../../assets/githubDark.png"
-import GithubLight from "../../assets/githubLight.png"
 
-import EmailDark from "../../assets/emailDark.png"
-import EmailLight from "../../assets/emailLight.png"
 import NavigationButtons from '../../ui/elements/navButtons';
 
 import { useDarkMode } from '../../../contexts/darkMode';
@@ -22,15 +16,23 @@ import { useScroll } from '../../../contexts/scroll';
 
 const HeaderLogin: React.FC = () => {
     const { isDarkMode } = useDarkMode();
-    const { showStickyButtons } = useScroll();
+    const { showStickyButtons, scrollTo, homeRef } = useScroll();
 
+
+    const LinkedinDark = "https://zohebhasan.com/assets/linkedinDark.webp";
+    const LinkedinLight = "https://zohebhasan.com/assets/linkedinLight.webp";
+
+    const GithubDark = "https://zohebhasan.com/assets/githubDark.webp";
+    const GithubLight = "https://zohebhasan.com/assets/githubLight.webp";
 
 
     return (
         <HeaderContainer variant={"hidden"}>
             <FirstHalf>
                 <LogoContainer>
-                    <Logo />
+                    <LogoWrapper onClick={() => scrollTo(homeRef)}>
+                        <Logo />
+                    </LogoWrapper>
                 </LogoContainer>
 
                 {showStickyButtons && (
@@ -40,6 +42,7 @@ const HeaderLogin: React.FC = () => {
                 )}
             </FirstHalf>
             <SecondHalf>
+
                 <LinkButtonContainer>
                     <IconLink href="https://github.com/ZohebHasan" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                         <ClickableButtonIcon src={isDarkMode ? GithubDark : GithubLight} size={1.6} />
@@ -48,10 +51,11 @@ const HeaderLogin: React.FC = () => {
                         <ClickableButtonIcon src={isDarkMode ? LinkedinDark : LinkedinLight} size={1.6} />
                     </IconLink>
                 </LinkButtonContainer>
-
-                <DarkLightToggleContainer>
-                    <DarkLightToggle />
-                </DarkLightToggleContainer>
+                <HideOnMobile>
+                    <DarkLightToggleContainer>
+                        <DarkLightToggle />
+                    </DarkLightToggleContainer>
+                </HideOnMobile>
                 <OptionButtonWrapper>
                     <OptionButton />
                 </OptionButtonWrapper>
@@ -61,6 +65,20 @@ const HeaderLogin: React.FC = () => {
 };
 
 export default HeaderLogin;
+
+const LogoWrapper = styled.div`
+  transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.03);
+    opacity: 0.7;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 1;
+  }
+`;
 
 const LogoContainer = styled.div`
     display: flex;
@@ -118,6 +136,10 @@ const LinkButtonContainer = styled.div`
     gap: 1rem;
     flex-direction: row;
     /* background-color: green; */
+    @media (max-width: 768px) {
+      padding-right: 0.3rem;
+      /* margin-right: 1rem; */
+  }
 `;
 
 const IconLink = styled.a`
@@ -128,13 +150,15 @@ const IconLink = styled.a`
 `;
 
 const ClickableButtonIcon = styled.img<{ size: number }>`
-    width: ${({ size }) => `${size}rem`};
+    width: 1.5rem;
     height: auto;
     object-fit: contain;
     display: block;
     opacity: 0.7;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-
+    @media (max-width: 768px) {
+          width: 1.1rem;
+    }
     &:hover {
         opacity: 1;
         transform: scale(1.08);
@@ -168,22 +192,12 @@ const OptionButtonWrapper = styled.div`
   /* background-color: orange; */
 `;
 
-const OptionButtonContainer = styled.div`
-  background-color: red;
-  flex: 2;
+const HideOnMobile = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  transform-origin: center; // Ensure this is applied universally
 
-  &:hover {
-    opacity: 0.7;
-    transform: scale(1.08);
-    transform-origin: center; // Redefine it here to avoid any overrides
-  }
-
-  &:active {
-    transform: scale(0.98);
+  @media (max-width: 768px) {
+    display: none;
   }
 `;

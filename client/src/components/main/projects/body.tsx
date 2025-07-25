@@ -7,10 +7,7 @@ import BodyContainer from '../../ui/templetes/bodyTemplete';
 import Text from '../../ui/elements/text';
 import IntroVideo from './intro';
 
-import Documentation from "../../assets/connectDocumentation.pdf"
 
-import RightDark from "../../assets/rightCircleDark.png";
-import RightLight from "../../assets/rightCircleLight.png";
 
 
 import MediaScroller from './photoSlider';
@@ -20,46 +17,54 @@ import ProjectPhotoSlider from './projectPhotoSlider';
 import ConnaButton from '../../ui/elements/conna';
 
 
+
+
 const ProjectBody: React.FC = () => {
 
     const { isDarkMode } = useDarkMode();
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const DocumentationDark = "https://zohebhasan.com/assets/documentationDark.webp";
+    const DocumentationLight = "https://zohebhasan.com/assets/documentationLight.webp";
+
+    const RightDark = "https://zohebhasan.com/assets/rightCircleDark.webp";
+    const RightLight = "https://zohebhasan.com/assets/rightCircleLight.webp";
+
     const projects = [
         {
             title: "Prompt Craft",
             description:
-                "Prompt Craft is an interactive project that explores how the phrasing and structure of language alone can guide the behavior of Large Language Models (LLMs) like ChatGPT. Instead of relying on fine-tuning or additional training, this project demonstrates how carefully designed prompts can achieve accurate sentiment classification by leveraging the model’s inherent reasoning abilities. Through hands-on experimentation, users can craft different prompt templates, evaluate their effectiveness, and gain deeper insights into how LLMs interpret and respond to natural language. PromptCraft serves as both a tool and a conceptual entry point into the emerging field of prompt engineering.",
+                "Prompt Craft is an interactive project that explores how the phrasing and structure of language alone can guide the behavior of Large Language Models (LLMs) like ChatGPT. Instead of relying on fine tuning or additional training, this project demonstrates how carefully designed prompts can achieve accurate sentiment classification by leveraging the model’s inherent reasoning abilities. Through hands-on experimentation, users can craft different prompt templates, evaluate their effectiveness, and gain deeper insights into how LLMs interpret and respond to natural language. PromptCraft serves as both a tool and a conceptual entry point into the emerging field of prompt engineering.",
             link: "https://github.com/ZohebHasan/promptCraft",
         },
         {
             title: "Internet Protocol Fragmentation",
             description:
-                "This project showcases a low-level implementation of data transmission by simulating how internet packets are broken down and reassembled. Instead of using existing networking tools, I wrote everything from scratch in C to understand how data travels over networks. The program takes large chunks of data, splits them into smaller “packets,” adds important delivery information (like addresses and security checks), and then puts everything back together accurately on the receiving end. This hands-on experience deepened my understanding of how the internet functions beneath the surface and reflects my ability to work with memory management, binary operations, and systems-level thinking—skills that are critical for performance-sensitive software and infrastructure roles.",
+                "This project showcases a low level implementation of data transmission by simulating how internet packets are broken down and reassembled. Instead of using existing networking tools, I wrote everything from scratch in C to understand how data travels over networks. The program takes large chunks of data, splits them into smaller “packets,” adds important delivery information (like addresses and security checks), and then puts everything back together accurately on the receiving end. This hands-on experience deepened my understanding of how the internet functions beneath the surface and reflects my ability to work with memory management, binary operations, and systems level thinking, skills that are critical for performance sensitive software and infrastructure roles.",
             link: "https://github.com/ZohebHasan/IP-Fragmentation",
         },
         {
             title: "Fake Stack Overflow",
             description:
-                "This project is a full-stack web application inspired by Stack Overflow, built using React, Node.js, Express, and MongoDB. It allows users to register, ask and answer questions, upvote/downvote content, comment, and manage profiles, including reputation-based privileges. Key features include secure authentication with hashed passwords, dynamic pagination, search functionality, and administrative controls. The project demonstrates my ability to design and implement scalable, user-centric applications with complex data relationships and asynchronous server communication.",
+                "This project is a full stack web application inspired by Stack Overflow, built using React, Node.js, Express, and MongoDB. It allows users to register, ask and answer questions, upvote/downvote content, comment, and manage profiles, including reputation based privileges. Key features include secure authentication with hashed passwords, dynamic pagination, search functionality, and administrative controls. The project demonstrates my ability to design and implement scalable, user centric applications with complex data relationships and asynchronous server communication.",
             link: "https://github.com/ZohebHasan/FakeStackOverflow---Full-Stack",
         },
         {
             title: "MD5 Password Cracking (White Hat)",
             description:
-                "This project showcases a collection of password recovery tools using various attack strategies on MD5-hashed credentials, including brute force, dictionary attacks, rainbow table lookups, and hybrid methods with salting and transformations. Designed in Java with concurrent execution for efficiency, the system processes input files of users and hashes, attempts to recover original passwords, and reports performance metrics such as success rate and total time. It demonstrates strong proficiency in cybersecurity concepts, hashing algorithms, multithreaded programming, and algorithmic problem-solving.",
+                "This project showcases a collection of password recovery tools using various attack strategies on MD5 hashed credentials, including brute force, dictionary attacks, rainbow table lookups, and hybrid methods with salting and transformations. Designed in Java with concurrent execution for efficiency, the system processes input files of users and hashes, attempts to recover original passwords, and reports performance metrics such as success rate and total time. It demonstrates strong proficiency in cybersecurity concepts, hashing algorithms, multithreaded programming, and algorithmic problem solving.",
             link: "https://github.com/ZohebHasan/MD5_Password_Cracking.git",
         },
         {
             title: "PPM Pixel Editor",
             description:
-                "This project is a lightweight image editor written in C/C++ that enables command-line manipulation of .ppm (Portable Pixmap) and .sbu image files. It supports advanced pixel-level operations including region copying, pasting, cloning, and format conversion. Users can modify specific areas of an image using structured CLI flags, efficiently compress output using custom color tables, and handle repetitive patterns through run-length encoding. The editor robustly validates input/output paths, supports format-specific logic, and handles both ASCII and binary image data types. Developed with modular code and structured error handling, this project reflects strong system-level programming skills, custom file parsing, and image data processing proficiency.",
+                "This project is a lightweight image editor written in C/C++ that enables command line manipulation of .ppm (Portable Pixmap) and .sbu image files. It supports advanced pixel level operations including region copying, pasting, cloning, and format conversion. Users can modify specific areas of an image using structured CLI flags, efficiently compress output using custom color tables, and handle repetitive patterns through run length encoding. The editor robustly validates input/output paths, supports format specific logic, and handles both ASCII and binary image data types. Developed with modular code and structured error handling, this project reflects strong system level programming skills, custom file parsing, and image data processing proficiency.",
             link: "https://github.com/ZohebHasan/PPM-photo-pixel-editor-with-command-line",
         },
         {
             title: "Enigma Machine – WWII Cipher Simulator",
             description:
-                "This project is a Java-based simulation of the historic Enigma Machine used by the Germans during World War II for secure communication. Designed with a focus on software architecture and modularity, the project allows users to encrypt and decrypt messages by configuring rotors, plugboards, and reflectors—mirroring the original machine’s functionality. It includes error-handling for user input, dynamic rotor rotation, and a full end-to-end encryption pipeline, all through an interactive terminal interface. This project demonstrates a strong understanding of object-oriented programming, algorithmic thinking, and cryptographic principles.",
+                "This project is a Java based simulation of the historic Enigma Machine used by the Germans during World War II for secure communication. Designed with a focus on software architecture and modularity, the project allows users to encrypt and decrypt messages by configuring rotors, plugboards, and reflectors, mirroring the original machine’s functionality. It includes error handling for user input, dynamic rotor rotation, and a full end to end encryption pipeline, all through an interactive terminal interface. This project demonstrates a strong understanding of object oriented programming, algorithmic thinking, and cryptographic principles.",
             link: "https://github.com/ZohebHasan/Enigma_Machine",
         },
     ];
@@ -72,31 +77,12 @@ const ProjectBody: React.FC = () => {
                     <Text size={"4.5rem"} variant={"personal"} fontWeight={"100"}>Projects</Text>
                 </TitleWrapper>
                 <ProjectOne>
-                    {/* <ProjectTitleWrapper>
-                        <ProjectTitle>
-                            <Underlined>
-                                <Text size="2rem" variant="transparent" fontWeight="100">Project 001:</Text>
-
-                                <Text size="2rem" variant="normal" fontWeight="100">Connect</Text>
-                            </Underlined>
-                        </ProjectTitle>
-                        <ProjectStatusBar>
-                            <DepricatedStatus>
-                                <Text size={"0.7rem"} variant={"normal"} fontWeight={"100"}>Depricated</Text>
-                            </DepricatedStatus>
-                            <DepricatedStatus>
-                                <Text size={"0.7rem"} variant={"normal"} fontWeight={"100"}>Publicized</Text>
-                            </DepricatedStatus>
-                        </ProjectStatusBar>
-                    </ProjectTitleWrapper> */}
-
                     <Intro>
-
                         <IntroText>
                             <IntroTextWrapper>
                                 <Text size={"1.2rem"} variant={"normal"} fontWeight={"200"}>Project 001: Connect</Text>
                                 <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
-                                    Connect was my most ambitious project — a privacy-first social
+                                    Connect was my most ambitious project, a privacy-first social
                                     media platform built with a team of six engineers to give users
                                     full control over their digital lives. I led the development
                                     of a secure, decentralized MERN-based system featuring Signal
@@ -107,6 +93,18 @@ const ProjectBody: React.FC = () => {
                                 </Text>
 
                                 <ButtonWrapper>
+                                    <ButtonContainer
+                                        onClick={() => window.open("https://drive.google.com/file/d/15nGmdQ1IgOOsfKdhmqLF29h4MlP1r90i/view?usp=sharing")}
+                                    >
+                                        {/* <RightIcon src={isDarkMode ? DocumentationDark : DocumentationLight} /> */}
+                                        <Text size={"1rem"} variant={"normal"} fontWeight={"400"}>
+                                            Read the official documentation
+                                        </Text>
+                                        {/* <LeftToRightText size={"1rem"}>
+                                            Read the official documentation
+                                        </LeftToRightText> */}
+                                        <RightIcon src={isDarkMode ? DocumentationDark : DocumentationLight} />
+                                    </ButtonContainer>
                                     <ButtonContainer
                                         onClick={() => window.open("https://github.com/ZohebHasan/Connect", "_blank")}
                                     >
@@ -124,15 +122,14 @@ const ProjectBody: React.FC = () => {
                     </Intro>
                     <Intro>
                         <FeatureContainer>
-                            {/* <ProfilePhotos src={isDarkMode ? ProfilesLight : ProfilesDark} /> */}
+
                             <ConnectFeatureScroller />
                         </FeatureContainer>
                         <IntroText>
                             <IntroTextWrapper>
                                 <Text size={"1.2rem"} variant={"normal"} fontWeight={"200"}>Product Idea & Key Features</Text>
                                 <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
-                                    Connect’s dynamic profile system allowed users to switch between personal, professional, and educational identities—each with tailored privacy settings, content filters, and engagement tools—giving users full control over how they presented themselves in different contexts. This flexibility positioned Connect as a competitor to LinkedIn, Meta, and Piazza. To ensure safety and privacy, features like Data Protection Mode blocked screenshots, downloads, and unauthorized copying, while Profile Encryption secured all messages, photos, and videos. Users could also monetize their content, filter sensitive material with Censor Mode, and block inappropriate interactions by default with Restricted Mode—together creating a secure, user-first social platform.
-                                </Text>
+                                    Connect’s dynamic profile system allowed users to switch between personal, professional, and educational identities. Each profile came with tailored privacy settings, content filters, and engagement tools, giving users full control over how they presented themselves in different contexts. This flexibility positioned Connect as a competitor to LinkedIn, Meta, and Piazza. To ensure safety and privacy, features like Data Protection Mode blocked screenshots, downloads, and unauthorized copying. Profile Encryption secured all messages, photos, and videos. Users could also monetize their content, filter sensitive material using Censor Mode, and block inappropriate interactions by default with Restricted Mode. Together, these tools created a secure, user-first social platform.                                </Text>
                             </IntroTextWrapper>
                         </IntroText>
 
@@ -143,7 +140,7 @@ const ProjectBody: React.FC = () => {
                             <IntroTextWrapper>
                                 <Text size={"1.2rem"} variant={"normal"} fontWeight={"200"}>Conna</Text>
                                 <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
-                                    One of the most ambitious components of Connect was Conna. She was an AI-powered multilingual digital assistant designed to revolutionize how users interact within the platform. Built to understand and respond in any language using GPT-4 or Gemini paired with Wavenet TTS, Conna aimed to make communication seamless, inclusive, and intuitive across cultural and linguistic boundaries. It was envisioned not just as a chatbot, but as a personalized interface into a decentralized, privacy-oriented social network. Unfortunately, despite our passion and early progress, we were unable to bring Conna to life due to a lack of funding and engineering resources.
+                                    One of the most ambitious components of Connect was Conna. She was an AI-powered multilingual digital assistant designed to revolutionize how users interact within the platform. Built to understand and respond in any language using GPT-4 or Gemini paired with Wavenet TTS, Conna aimed to make communication seamless, inclusive, and intuitive across cultural and linguistic boundaries. It was envisioned not just as a chatbot but as a personalized interface into a decentralized, privacy-oriented social network. Unfortunately, despite our passion and early progress, we were unable to bring Conna to life due to a lack of funding and engineering resources.
                                 </Text>
                             </IntroTextWrapper>
                         </IntroText>
@@ -158,7 +155,7 @@ const ProjectBody: React.FC = () => {
                         </TitleWrapper>
                         <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
                             The screenshots below are from the beta prototype of
-                            Connect — a project we poured our hearts into
+                            Connect, a project we poured our hearts into
                             but were ultimately unable to publish or secure
                             funding for. These screens represent some of
                             our core ideas, from onboarding to profile
@@ -171,7 +168,7 @@ const ProjectBody: React.FC = () => {
                         <MediaScroller />
                     </UISnapshotsContainer>
 
-                    <Intro>
+                    {/* <Intro>
                         <VideoContainer>
                             <iframe
                                 src={Documentation}
@@ -214,7 +211,7 @@ const ProjectBody: React.FC = () => {
                                 </Text>
                             </IntroTextWrapper>
                         </IntroText>
-                    </Intro>
+                    </Intro> */}
                 </ProjectOne>
                 <ProjectOne>
                     <ProjectTitleWrapper>
@@ -274,6 +271,7 @@ const FeatureContainer = styled.div`
     margin-top: 1rem;
      border-radius: 1rem;
 
+
 `
 
 const VideoContainer = styled.div`
@@ -298,6 +296,8 @@ const ConnaContainer = styled.div`
 const ButtonWrapper = styled.div`
     /* background-color: blue; */
     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 `
 
 const ButtonContainer = styled.div`

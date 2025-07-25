@@ -1,10 +1,22 @@
-import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback, RefObject } from 'react';
 
 interface ScrollContextType {
   showStickyButtons: boolean;
+  homeRef: RefObject<HTMLDivElement | null>;
+  projectsRef: RefObject<HTMLDivElement | null>;
+  aboutRef: RefObject<HTMLDivElement | null>;
+  contactRef: RefObject<HTMLDivElement | null>;
+  scrollTo: (ref: RefObject<HTMLDivElement | null>) => void;
 }
 
-const ScrollContext = createContext<ScrollContextType>({ showStickyButtons: false });
+const ScrollContext = createContext<ScrollContextType>({
+  showStickyButtons: false,
+  homeRef: { current: null },
+  projectsRef: { current: null },
+  aboutRef: { current: null },
+  contactRef: { current: null },
+  scrollTo: () => { },
+});
 
 export const useScroll = () => useContext(ScrollContext);
 
@@ -13,39 +25,40 @@ export const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const homeTopRef = useRef<number>(0);
   const rafId = useRef<number>(0);
 
-  // Calculate home-top position with proper document-relative position
+  const homeRef = useRef<HTMLDivElement | null>(null);
+  const projectsRef = useRef<HTMLDivElement | null>(null);
+  const aboutRef = useRef<HTMLDivElement | null>(null);
+  const contactRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollTo = (ref: RefObject<HTMLDivElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const calculateHomeTop = useCallback(() => {
     const element = document.getElementById('home-top');
     if (!element) return 0;
-    
+
     const rect = element.getBoundingClientRect();
     return rect.top + window.scrollY;
   }, []);
 
-  // Update position on resize and scroll
   const updatePositions = useCallback(() => {
     homeTopRef.current = calculateHomeTop();
   }, [calculateHomeTop]);
 
-  // Efficient scroll handler
   const handleScroll = useCallback(() => {
     if (rafId.current) window.cancelAnimationFrame(rafId.current);
-    
+
     rafId.current = window.requestAnimationFrame(() => {
-      const shouldShow = window.scrollY > homeTopRef.current + 440;
+      const shouldShow = window.scrollY > homeTopRef.current + 388;
       setShowStickyButtons(shouldShow);
     });
   }, []);
 
   useEffect(() => {
-    // Initial measurement
     updatePositions();
-    
-    // Setup event listeners
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', updatePositions);
-    
-    // Set initial state
     handleScroll();
 
     return () => {
@@ -56,7 +69,16 @@ export const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, [handleScroll, updatePositions]);
 
   return (
-    <ScrollContext.Provider value={{ showStickyButtons }}>
+    <ScrollContext.Provider
+      value={{
+        showStickyButtons,
+        homeRef,
+        projectsRef,
+        aboutRef,
+        contactRef,
+        scrollTo,
+      }}
+    >
       {children}
     </ScrollContext.Provider>
   );

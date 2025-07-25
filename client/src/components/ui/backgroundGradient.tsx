@@ -1,39 +1,58 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-
-
-
-
 import { useDarkMode } from '../../contexts/darkMode';
+import { useReducedMotion } from '../../contexts/reducedMotionContext';
 
-import VideoTransperant from "../assets/background1.webm"
+
 
 const BackgroundAnimation: React.FC = () => {
-    const { isDarkMode } = useDarkMode();
-    return (
-        <>
-            {/* <StyledVideo autoPlay loop muted playsInline controls={false} opacity={isDarkMode ? 0 : 1}>
-                <source src={VideoLight} type="video/mp4" />
-            </StyledVideo>
-            <StyledVideo autoPlay loop muted playsInline controls={false} opacity={isDarkMode ? 1 : 0}>
-                <source src={VideoDark} type="video/mp4" />
-            </StyledVideo> */}
+  const { isDarkMode } = useDarkMode();
+  const { isReducedMotion } = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-            <StyledVideo autoPlay loop muted playsInline controls={false}>
-                <source src={VideoTransperant} type="video/mp4" />
-            </StyledVideo> 
-        </>
-    );
-}
+  const VideoTransperant = "https://zohebhasan.com/assets/background1.webm";
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (video) {
+      if (isReducedMotion) {
+        video.pause();
+      } else {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.warn("⚠️ Autoplay was prevented:", err);
+          });
+        }
+      }
+    }
+  }, [isReducedMotion]);
+
+  return (
+    <StyledVideo
+      ref={videoRef}
+      autoPlay
+      loop
+      muted
+      playsInline
+      controls={false}
+      preload='auto'
+    >
+      <source src={VideoTransperant} type="video/webm" />
+    </StyledVideo>
+  );
+};
+
 export default BackgroundAnimation;
 
-
-
-
 const StyledVideo = styled.video`
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    object-fit: cover;
-    position: absolute;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 `;

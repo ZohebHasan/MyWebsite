@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDarkMode } from '../../../contexts/darkMode';
-import { useAccessibility } from '../../../contexts/accessibility';
+
 import DarkModeOptions from './darkModeOptions';
 
 const DarkModeBar: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-    const { isColorBlindPannelOpen, addProtectedRef, removeProtectedRef } = useAccessibility();
-    const { isDarkMode } = useDarkMode();
+
+    const { isDarkMode,  isDarkModePannelOpen, addProtectedRef, removeProtectedRef } = useDarkMode();
     const colorBlindBarRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -29,11 +29,11 @@ const DarkModeBar: React.FC<{ children?: React.ReactNode }> = ({ children }) => 
     return (
         <StyledColorBlindBar
             ref={colorBlindBarRef}
-            $isProfileBarOpen={isColorBlindPannelOpen}
+            $isProfileBarOpen={isDarkModePannelOpen}
             $isDarkMode={isDarkMode}
             onClick={handlePanelClick}
         >
-            <LinksContainer $isProfileBarOpen={isColorBlindPannelOpen}>
+            <LinksContainer $isProfileBarOpen={isDarkModePannelOpen}>
                 <DarkModeOptions/>
             </LinksContainer>
         </StyledColorBlindBar>
@@ -54,7 +54,10 @@ const StyledColorBlindBar = styled.div<{ $isProfileBarOpen?: boolean; $isDarkMod
     background-color: ${$isDarkMode ? 'rgba(33, 33, 33, 0.9)' : 'rgba(255, 255, 255, 0.9)'};
   `}
   border-radius: 0.5rem;
-  min-width: 11.2rem;
+  min-width: 8.4rem;
+  @media (max-width: 768px) {
+    min-width: 7.1rem;
+  }
   position: absolute;
   backdrop-filter: blur(3px);
   overflow-x: hidden;

@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import LogoNew from '../../assets/logo.png';
-import { useDarkMode } from "../../../contexts/darkMode";
 import Text from "./text";
 
 const ConnectLogo: React.FC<{ size?: number }> = ({ size = 1 }) => {  // Set default size
-    const { isDarkMode } = useDarkMode();
+
+
+    const LogoNew = "https://zohebhasan.com/assets/logo.webp";
     return (
         <LogoContainer>
             <StyledLogo src={LogoNew} alt="Logo" size={size} />

@@ -4,16 +4,18 @@ import styled from 'styled-components';
 import { useDarkMode } from '../../../contexts/darkMode';
 import { useSidebar } from '../../../contexts/sidebar';
 
-import CloseLight from "../../assets/closeLight.png";
-import CloseDark from "../../assets/closeDark.png";
-import OptionDark from "../../assets/optionDark.png";
-import OptionLight from "../../assets/optionLight.png";
 
 const OptionButton: React.FC = () => {
   const { isDarkMode } = useDarkMode();
   const { isSidebarOpen, toggleSidebar, addProtectedRef, removeProtectedRef } = useSidebar();
 
   const optionBtnRef = useRef<HTMLImageElement>(null);
+
+  const CloseLight = "https://zohebhasan.com/assets/closeLight.webp";
+  const CloseDark = "https://zohebhasan.com/assets/closeDark.webp";
+
+  const OptionDark = "https://zohebhasan.com/assets/optionDark.webp";
+  const OptionLight = "https://zohebhasan.com/assets/optionLight.webp";
 
   useEffect(() => {
     if (optionBtnRef.current) {
@@ -52,9 +54,10 @@ const StyledIcon = styled.img`
   display: flex;
   opacity: 0.7;
 
-  @media (max-width: 1280px) { 
-    width: 1.3rem;
-    height: 1.3rem;
+  @media (max-width: 768px) {
+    width: 1.2rem;
+    height: 1.2rem;
+    opacity: 0.7;
   }
 
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;

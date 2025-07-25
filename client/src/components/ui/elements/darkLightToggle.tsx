@@ -3,21 +3,18 @@ import styled, { css } from 'styled-components';
 import { useDarkMode } from '../../../contexts/darkMode';
 
 
-import Sun from "../../assets/sun.png"
-import Moon from "../../assets/moon.png"
-
 const DarkLightToggle: React.FC = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-  const darkLightToggleRef = useRef<HTMLDivElement>(null); 
+  const darkLightToggleRef = useRef<HTMLDivElement>(null);
 
-
-
+  const Sun = "https://zohebhasan.com/assets/sun.webp";
+  const Moon = "https://zohebhasan.com/assets/moon.webp";
 
   return (
     <ToggleContainer onClick={toggleDarkMode} $darkMode={isDarkMode} ref={darkLightToggleRef}>
-      <SunIcon src = {Sun} $darkMode={isDarkMode}/>
+      <SunIcon src={Sun} $darkMode={isDarkMode} />
       <ToggleCircle $darkMode={isDarkMode}></ToggleCircle>
-      <MoonIcon src = {Moon} $darkMode={isDarkMode}/>
+      <MoonIcon src={Moon} $darkMode={isDarkMode} />
     </ToggleContainer>
   );
 };

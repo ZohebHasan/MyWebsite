@@ -1,62 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDarkMode } from "../../../contexts/darkMode";
-
-
-
 
 import BodyContainer from '../../ui/templetes/bodyTemplete';
 import Text from '../../ui/elements/text';
 
-import About1 from "../../assets/zohebAbout1.jpg";
-import About2 from "../../assets/zohebAbout2.jpg";
-import About3 from "../../assets/zohebAbout3.jpeg"
-
-
-import IPFragLight from "../../assets/ipFragLight.png";
-import IPFragDark from "../../assets/ipFragDark.png";
-
-import Md5Light from "../../assets/md5Light.png";
-import Md5Dark from "../../assets/md5Dark.png";
-
-import PPMLight from "../../assets/ppmLight.png";
-import PPMDark from "../../assets/ppmDark.png";
-
-import EnigmaLight from "../../assets/enigmaLight.png";
-import EnigmaDark from "../../assets/enigmaDark.png";
-
-import FakeStackDark from "../../assets/fakeStackDark.png";
-import FakeStackLight from "../../assets/fakeStackLight.png";
-
-import PromptCraftLight from "../../assets/promptCraftLight.png";
-import PromptCraftDark from "../../assets/promptCraftDark.png";
-
-import ProfilesDark from "../../assets/profilesDark.png";
-import ProfilesLight from "../../assets/profilesLight.png";
-
-import FeaturesDark from "../../assets/featuresDark.png";
-import FeaturesLight from "../../assets/featuresLight.png";
-
-import GithubRepoDark from "../../assets/githubRepoDark.png"
-import GithubRepoLight from "../../assets/githubRepoLight.png"
-
-// import Documentation from "../../assets/connectDocumentation.pdf"
-
-import RightDark from "../../assets/rightCircleDark.png";
-import RightLight from "../../assets/rightCircleLight.png";
-
-
-// import MediaScroller from './photoSlider';
-import LeftToRightText from '../../ui/elements/leftToRightText';
-
-import ConnaButton from '../../ui/elements/conna';
-
-
 const ProjectBody: React.FC = () => {
 
-    const { isDarkMode } = useDarkMode();
-
-
+    const About1 = "https://zohebhasan.com/assets/zohebAbout1.webp";
+    const About2 = "https://zohebhasan.com/assets/zohebAbout2.webp";
+    const About3 = "https://zohebhasan.com/assets/zohebAbout3.webp";
 
     return (
         <BodyContainer flexDirection={"column"}>
@@ -75,21 +27,9 @@ const ProjectBody: React.FC = () => {
                                     Who am I?
                                 </Text>
                                 <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
-                                    Hi, I’m Zoheb — originally from Dhaka, Bangladesh, now
-                                    living in New York. I grew up surrounded by the energy
-                                    and challenges of a developing city, and from early on,
-                                    I felt a deep urge to be part of something bigger — to
-                                    create change, to build things that matter. When I moved
-                                    to the U.S. in 2021, that desire only grew stronger.
-                                    After finishing high school, I asked myself what path
-                                    would give me the freedom to turn my ideas into real
-                                    solutions. That’s when I found computer science.
-                                    It wasn’t just a career choice — it was a way to
-                                    channel my curiosity, creativity, and drive into something
-                                    tangible. To me, coding is more than logic and syntax
-                                    — it’s a way to build, to express, and to bring ideas
-                                    to life that could one day make someone’s world
-                                    a little better.
+                                    Hi, I’m Zoheb, originally from Dhaka, Bangladesh, now living in New York. I grew up surrounded by the energy and challenges of a developing city, and from early on, I felt a deep urge to be part of something bigger. I wanted to create change and build things that matter. When I moved to the U.S., that desire only grew stronger.
+
+                                    After finishing high school, I asked myself what path would give me the freedom to turn my ideas into real solutions. That’s when I found computer science. It wasn’t just a career choice; it was a way to channel my curiosity, creativity, and drive into something tangible. To me, coding is more than logic and syntax. It is a way to build, to express, and to bring ideas to life that could one day make someone’s world a little better.
 
                                 </Text>
                             </IntroTextWrapper>
@@ -104,18 +44,12 @@ const ProjectBody: React.FC = () => {
                                     My Academics
                                 </Text>
                                 <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
-                                    I’m currently in my senior year of college. Looking back,
-                                    the journey hasn’t always been easy — especially during my
-                                    freshman year. Coming to a new country meant navigating
-                                    cultural shocks, adjusting to a different academic system,
-                                    and learning to express myself in a new language. Everything
-                                    felt unfamiliar at first. But I adapted quickly. I learned
-                                    to ask questions, to fail and retry, to stay curious and
-                                    resilient. I wouldn’t call myself a “perfect student,” but
-                                    I’ve grown into someone who understands systems, builds solutions,
-                                    and thinks like a computer scientist. College didn’t just teach
-                                    me how to write code — it taught me how to grow through change
-                                    and keep moving forward.
+                                    I’m currently in my senior year at Stony Brook University, where I’ve grown both academically and personally. The Computer Science program is rigorous, fast-paced, and filled with incredibly smart people. It challenges you to think critically and stay sharp.
+
+                                    When I arrived, everything was unfamiliar. I had just moved to a new country and was adjusting to a different academic culture and way of communicating. It was tough at first, but I adapted. I asked questions, made mistakes, and learned quickly.
+
+                                    I may not be a perfect student, but I’ve become someone who understands how systems work and how to build better ones. Stony Brook taught me to stay curious, handle pressure, and keep going even when things get hard.
+
                                 </Text>
                             </IntroTextWrapper>
                         </IntroText>
@@ -133,17 +67,7 @@ const ProjectBody: React.FC = () => {
                                     Things I like
                                 </Text>
                                 <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
-                                    I’m a pretty simple guy with a bunch of things that make
-                                    me feel alive. I’ve always had a soft spot for cats —
-                                    there’s something calming about their presence. I love cars
-                                    too, especially the feeling of being behind the wheel on an
-                                    empty road with music blasting. I listen to a lot of artists,
-                                    but The Weeknd has a special place in my rotation — his music
-                                    just gets it. I also enjoy dressing up for fun, slipping into
-                                    cosplay now and then, and whenever I get the chance, I try
-                                    to explore new places. Traveling clears my head, gives me
-                                    stories. These are the things that keep me grounded, inspired,
-                                    and curious.
+                                    I’m a pretty simple guy with a bunch of things that make me feel alive. I’ve always had a soft spot for cats — there’s something calming about their presence. I love cars too, especially the feeling of being behind the wheel on an empty road with music blasting. I listen to a lot of artists, but The Weeknd has a special place in my rotation. His music just gets it. I also enjoy dressing up for fun, slipping into cosplay now and then, and whenever I get the chance, I try to explore new places. Traveling clears my head and gives me stories. These are the things that keep me grounded, inspired, and curious.
                                 </Text>
                             </IntroTextWrapper>
                         </IntroText>
