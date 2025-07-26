@@ -9,7 +9,7 @@ import ConnectLogo from './connectLogo';
 const Associations: React.FC = () => {
 
   const StonyBrookLogo = "https://zohebhasan.com/assets/stonybrook.webp";
-  const RobiLogo = "https://zohebhasan.com/assets/robi.webp"; 
+  const RobiLogo = "https://zohebhasan.com/assets/robi.svg";
   const NirontorLogo = "https://zohebhasan.com/assets/nirontor.webp";
   const ChocolateApaLogo = "https://zohebhasan.com/assets/chocolateApa.webp";
 
